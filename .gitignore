@@ -1,0 +1,21 @@
+# Eclipse metadata (fuera del proyecto, pero por si acaso)
+.metadata/
+
+# Eclipse project settings
+.project
+.classpath
+.settings/
+
+# Build directories
+build/
+target/
+bin/
+
+# IDE files
+*.iml
+*.ipr
+*.iws
+
+# Maven/Gradle wrappers (si no los usas)
+.mvn/
+.gradle/
