@@ -15,28 +15,29 @@
         <c:when test="${empty cookie.tipo || cookie.tipo.value != 'centro'}">
             <h2>El centro educativo no está registrado.</h2>
         </c:when>
-        <c:otherwise>
-            <h2>Organizar Partida - Escape contra el Acoso y Ciberbullying</h2>
-            <form action="ProcesarPartidaServlet" method="post">
-                <label>Fecha de activación:</label>
-                <input type="date" name="fechaActivacion" required /><br /><br />
+		<c:otherwise>
+			<h2>Organizar Partida - Escape contra el Acoso y Ciberbullying</h2>
+			<form action="ProcesarPartidaServlet" method="post">
+				<label>Fecha de activación:</label> <input type="date"
+					name="fechaActivacion" required /><br />
+				<br /> <label>Nombre de la clase / descripción:</label> <input
+					type="text" name="nombreClase" maxlength="100" required /><br />
+				<br /> <label>Cantidad:</label> <input type="number"
+					name="cantidad" min="1" required /><br />
+				<br /> <label>Idioma:</label> <select name="idioma">
+					<option value="es">Español</option>
+					<option value="en">Inglés</option>
+					<option value="eu">Euskera</option>
+				</select><br />
+				<br />
+				<% String error = (String) request.getAttribute("errorCupones"); %>
+				<% if (error != null) { %>
+				<p style="color: red;"><%= error %></p>
+				<% } %>
 
-                <label>Nombre de la clase / descripción:</label>
-                <input type="text" name="nombreClase" maxlength="100" required /><br /><br />
-
-                <label>Cantidad:</label>
-                <input type="number" name="cantidad" min="1" required /><br /><br />
-
-                <label>Idioma:</label>
-                <select name="idioma">
-                    <option value="es">Español</option>
-                    <option value="en">Inglés</option>
-                    <option value="eu">Euskera</option>
-                </select><br /><br />
-
-                <input type="submit" value="Generar Código de Acceso" />
-            </form>
-        </c:otherwise>
-    </c:choose>
+				<input type="submit" value="Generar Código de Acceso" />
+			</form>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

@@ -12,6 +12,11 @@ public class CuponService {
 		return c.asignarCupon(cupon);
 	}
 	
+	public List<Cupon> getCuponesDisponiblesService (int id) {
+		CuponDAO c = new CuponDAO();
+		return c.getCuponesDisponibles(id);
+	}
+	
 	public boolean updateEstadoCuponService(int id, String estado) {
 		CuponDAO c = new CuponDAO();
 		return c.updateCuponEstado(id, estado);
@@ -25,6 +30,11 @@ public class CuponService {
 	public List<Cupon> getCuponesPorSuscriptor(String username){
 		CuponDAO c = new CuponDAO();
 		return c.obtenerCuponesPorSuscriptor(username);
+	}
+	
+	public boolean eliminarCuponRandom(int idsuscriptor) {
+		CuponDAO c = new CuponDAO();
+		return c.eliminarCuponbySus(idsuscriptor);
 	}
 	
 	public boolean eliminarCupon(int idCupon) {
