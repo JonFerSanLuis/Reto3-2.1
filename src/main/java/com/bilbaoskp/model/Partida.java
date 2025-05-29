@@ -1,5 +1,6 @@
 package com.bilbaoskp.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Partida {
@@ -37,8 +38,8 @@ public class Partida {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFecha(Date fecha2) {
+        this.fecha = fecha2;
     }
 
     public String getIdioma() {
