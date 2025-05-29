@@ -1,9 +1,11 @@
 package controller;
 
 import java.io.IOException;
-
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,7 @@ import com.bilbaoskp.model.Partida;
 
 import service.CentroService;
 import service.CuponService;
+import service.PartidasService;
 import service.SuscriptorService;
 
 @WebServlet("/ProcesarPartidaServlet")
@@ -36,6 +39,7 @@ public class ProcesarPartidaServlet extends HttpServlet {
     	Cookie[] cookies = request.getCookies();
     	String username = null;
     	String cookieType = null;
+    	
     	if (cookies != null) {
     	    for (Cookie cookie : cookies) {
     	        if ("usuario".equals(cookie.getName())) {
@@ -46,11 +50,18 @@ public class ProcesarPartidaServlet extends HttpServlet {
     	    }
     	}
     	
+    	if (cookieType == null || !cookieType.equals("centro")) {
+    	    response.sendRedirect("login.jsp");
+    	    return;
+    	}
+    	
     	int cupones = Integer.parseInt(request.getParameter("cantidad"));
     	System.out.println(cupones);
     	
     	CuponService cs = new CuponService();
     	SuscriptorService s = new SuscriptorService();
+    	PartidasService p = new PartidasService();
+    	CentroService centro = new CentroService();
     	List <Cupon> cuponesDisponibles;
     	cuponesDisponibles = cs.getCuponesDisponiblesService(s.getSuscriptorByNombreService(username).getIdSuscriptor());
     	
@@ -60,9 +71,35 @@ public class ProcesarPartidaServlet extends HttpServlet {
     		request.setAttribute("errorCupones", "No hay suficientes cupones disponibles.");
     	    request.getRequestDispatcher("organizarPartida.jsp").forward(request, response);
     	}else {
-    		for(int a=0; a<=cupones; a++) {
+    		for(int a=0; a<cupones; a++) {
+    			//cambio estado del cupon
     			cs.updateEstadoCuponService(s.getSuscriptorByNombreService(username).getIdSuscriptor(), "en uso");
-    		}
+    			
+    			//se registran las partidas
+    			Partida partida = new Partida();
+    			System.out.println(request.getParameter("fechaActivacion"));
+    			String fechaParam = request.getParameter("fechaActivacion");
+    			Date fecha = null;
+
+    			try {
+    		    // Parsear el String con formato yyyy-MM-dd a java.util.Date
+    				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    				fecha = sdf.parse(fechaParam);
+    			} catch (ParseException e) {
+    				e.printStackTrace();
+    				request.setAttribute("errorFecha", "Fecha inválida.");
+    				request.getRequestDispatcher("organizarPartida.jsp").forward(request, response);
+    				return;
+    			}
+    				partida.setFecha(fecha);
+    				partida.setIdioma(request.getParameter("idioma"));
+    				partida.setNombre("Bullying");
+    				partida.setTipoPartida("centro");
+    				p.registrarPartida(partida, s.getSuscriptorByNombreService(username).getIdSuscriptor());
+    			}
+    		
+    		
+
     		response.sendRedirect("PerfilServlet");
     	}
     	

@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,7 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bilbaoskp.dao.SuscriptorDAO;
+import com.bilbaoskp.model.Cupon;
 import com.bilbaoskp.model.Suscriptor;
+
+import service.CentroService;
+import service.CuponService;
 
 @WebServlet("/AdminUsuarios")
 public class AdminUsuariosServlet extends HttpServlet {
@@ -195,21 +202,46 @@ public class AdminUsuariosServlet extends HttpServlet {
     private void aceptarCentro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            Suscriptor suscriptor = suscriptorDAO.getSuscriptorById(id);
-            
-            if (suscriptor != null) {
-                suscriptor.setEstado("activo");
-                boolean actualizado = suscriptorDAO.updateSuscriptor(suscriptor);
-                
-                if (actualizado) {
-                    request.getSession().setAttribute("mensaje", "Centro aceptado correctamente.");
-                } else {
-                    request.getSession().setAttribute("error", "Error al aceptar el centro.");
-                }
-            } else {
-                request.getSession().setAttribute("error", "Centro no encontrado.");
-            }
-        } catch (NumberFormatException e) {
+			Suscriptor suscriptor = suscriptorDAO.getSuscriptorById(id);
+
+			if (suscriptor != null) {
+				suscriptor.setEstado("activo");
+				boolean actualizado = suscriptorDAO.updateSuscriptor(suscriptor);
+				CentroService c = new CentroService();
+				// Asignar cupones al responsable
+				int alumnos = 0;
+				try {
+					alumnos = c.getCentroByName(suscriptorDAO.getSuscriptorById(id).getUsername()).getNumAlumnos();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				for (int a = 0; a < alumnos; a++) {
+					Cupon cupon = new Cupon();
+					cupon.setIdSuscriptor(id);
+					cupon.setTipo("REGALO");
+
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTime(new Date(System.currentTimeMillis()));
+					calendar.add(Calendar.YEAR, 1);
+					Date fechaCaducidad = new Date(calendar.getTimeInMillis());
+
+					cupon.setFechaCaducidad(fechaCaducidad);
+					cupon.setEstado("disponible");
+
+					CuponService cup = new CuponService();
+					cup.asignarCuponService(cupon);
+				}
+
+				if (actualizado) {
+					request.getSession().setAttribute("mensaje", "Centro aceptado correctamente.");
+				} else {
+					request.getSession().setAttribute("error", "Error al aceptar el centro.");
+				}
+			} else {
+				request.getSession().setAttribute("error", "Centro no encontrado.");
+			}
+		} catch (NumberFormatException e) {
             request.getSession().setAttribute("error", "ID de centro inválido.");
         }
         response.sendRedirect("AdminUsuarios?action=listarPendientes");

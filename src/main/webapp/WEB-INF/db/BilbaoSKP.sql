@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `centros` (
   `tipo_suscriptor` enum('centro','ordinario') DEFAULT NULL,
   PRIMARY KEY (`id_suscriptor`),
   CONSTRAINT `FK_centros_suscriptores` FOREIGN KEY (`id_suscriptor`) REFERENCES `suscriptores` (`id_suscriptor`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla bilbaoskp.centros: ~1 rows (aproximadamente)
 INSERT INTO `centros` (`id_suscriptor`, `cod_centro`, `nombre`, `responsable`, `num_alumnos`, `email`, `telefono`, `tipo_suscriptor`) VALUES
@@ -78,16 +78,24 @@ CREATE TABLE IF NOT EXISTS `cupones` (
   `id_suscriptor` int(11) NOT NULL,
   `tipo` varchar(120) NOT NULL,
   `fecha_caducidad` date NOT NULL,
-  `estado` enum('usado','disponible','reservado') NOT NULL DEFAULT 'disponible',
+  `estado` enum('usado','disponible','en uso') NOT NULL DEFAULT 'disponible',
   PRIMARY KEY (`id_cupon`),
   KEY `FK__suscriptores` (`id_suscriptor`),
   CONSTRAINT `FK__suscriptores` FOREIGN KEY (`id_suscriptor`) REFERENCES `suscriptores` (`id_suscriptor`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bilbaoskp.cupones: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bilbaoskp.cupones: ~11 rows (aproximadamente)
 INSERT INTO `cupones` (`id_cupon`, `id_suscriptor`, `tipo`, `fecha_caducidad`, `estado`) VALUES
 	(42, 32, 'Bullying', '2026-05-20', 'disponible'),
-	(43, 32, 'Bullying', '2026-05-22', 'disponible');
+	(43, 32, 'Bullying', '2026-05-22', 'disponible'),
+	(44, 14, 'Bullying', '2026-05-23', 'disponible'),
+	(45, 14, 'Bullying', '2026-05-23', 'disponible'),
+	(46, 14, 'Bullying', '2026-05-27', 'disponible'),
+	(59, 13, 'Bullying', '2026-05-29', 'en uso'),
+	(60, 13, 'Bullying', '2026-05-29', 'en uso'),
+	(61, 13, 'Bullying', '2026-05-29', 'en uso'),
+	(62, 13, 'Bullying', '2026-05-29', 'en uso'),
+	(63, 13, 'Bullying', '2026-05-29', 'en uso');
 
 -- Volcando estructura para tabla bilbaoskp.escape_room
 CREATE TABLE IF NOT EXISTS `escape_room` (
@@ -105,29 +113,24 @@ CREATE TABLE IF NOT EXISTS `escape_room` (
   CONSTRAINT `FK_escape_room_suscriptores` FOREIGN KEY (`id_suscriptor`) REFERENCES `suscriptores` (`id_suscriptor`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bilbaoskp.escape_room: ~7 rows (aproximadamente)
-INSERT INTO `escape_room` (`id`, `id_partida`, `id_suscriptor`, `tiempo_seg`, `pistas_usadas`, `puntos_totales`, `tipo_suscriptor`) VALUES
-	(3, 3, 4, 2400, 4, 9412, 'ordinario'),
-	(4, 1, 5, 2700, 5, 8975, 'ordinario'),
-	(5, 2, 6, 3000, 6, 8743, 'ordinario'),
-	(6, 3, 7, 2000, 2, 9500, 'ordinario'),
-	(7, 2, 8, 2200, 3, 9300, 'ordinario'),
-	(11, 2, 14, 2800, 2, 8560, 'centro');
+-- Volcando datos para la tabla bilbaoskp.escape_room: ~6 rows (aproximadamente)
 
 -- Volcando estructura para tabla bilbaoskp.partida
 CREATE TABLE IF NOT EXISTS `partida` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_suscriptor` int(11) NOT NULL,
   `nombre` varchar(200) NOT NULL,
   `tipo_partida` enum('centro','ordinaria') NOT NULL,
   `fecha` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+  `idioma` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_partida_suscriptores1` (`id_suscriptor`),
+  CONSTRAINT `FK_partida_suscriptores1` FOREIGN KEY (`id_suscriptor`) REFERENCES `suscriptores` (`id_suscriptor`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bilbaoskp.partida: ~3 rows (aproximadamente)
-INSERT INTO `partida` (`id`, `nombre`, `tipo_partida`, `fecha`) VALUES
-	(1, 'Partida 1', 'ordinaria', '2023-06-01'),
-	(2, 'Partida 2', 'ordinaria', '2023-06-15'),
-	(3, 'Partida 3', 'ordinaria', '2023-07-01');
+-- Volcando datos para la tabla bilbaoskp.partida: ~1 rows (aproximadamente)
+INSERT INTO `partida` (`id`, `id_suscriptor`, `nombre`, `tipo_partida`, `fecha`, `idioma`) VALUES
+	(8, 13, 'Bullying', 'centro', '2025-05-31', 'es');
 
 -- Volcando estructura para tabla bilbaoskp.partidas_clase
 CREATE TABLE IF NOT EXISTS `partidas_clase` (
@@ -168,17 +171,16 @@ CREATE TABLE IF NOT EXISTS `suscriptores` (
   PRIMARY KEY (`id_suscriptor`),
   UNIQUE KEY `usernameUnique` (`username`),
   KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bilbaoskp.suscriptores: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla bilbaoskp.suscriptores: ~7 rows (aproximadamente)
 INSERT INTO `suscriptores` (`id_suscriptor`, `username`, `estado`, `fecha_alta`, `tipo`, `password`, `correo`, `edad`) VALUES
 	(4, 'GamerPro123', 'activo', '2023-01-15', 'ordinario', 'password123', 'gamer123@email.com', 25),
 	(5, 'MasterGamer', 'activo', '2023-02-20', 'ordinario', 'password456', 'master@email.com', 30),
 	(6, 'GameWizard', 'activo', '2023-03-10', 'ordinario', 'password789', 'wizard@email.com', 22),
 	(7, 'PlayerOne', 'activo', '2023-04-05', 'ordinario', 'password101', 'player1@email.com', 28),
 	(8, 'GameChampion', 'activo', '2023-05-12', 'ordinario', 'password202', 'champion@email.com', 19),
-	(13, 'Erlantz', 'activo', '2025-04-27', 'centro', 'temporal', 'peperodrigues@gmail.com', 0),
-	(14, 'Aldo', 'estado', '2025-04-27', 'ordinario', '1234', 'peperodrigues@gmail.com', 12),
+	(13, 'Erlantz', 'activo', '2025-04-27', 'centro', 'temporal', 'aldo.dayron81@gmail.com', 0),
 	(32, 'Jon', 'estado', '2025-05-20', 'ordinario', '1234', 'jon@gmail.com', 12);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;

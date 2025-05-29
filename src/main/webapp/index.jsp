@@ -165,5 +165,22 @@
                 }
             });
         });
+        document.addEventListener("DOMContentLoaded", function () {
+            const header = document.querySelector(".header");
+
+            function toggleHeader() {
+                if (window.scrollY > 50) {
+                    header.classList.add("transparent");
+                    header.classList.remove("solid");
+                } else {
+                    header.classList.add("solid");
+                    header.classList.remove("transparent");
+                }
+            }
+
+            toggleHeader(); // Ejecutar al cargar
+            window.addEventListener("scroll", toggleHeader);
+        });
+
     </script>
 </body>

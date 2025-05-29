@@ -79,7 +79,7 @@ public class AltaSuscriptor extends HttpServlet {
 			SuscriptorService ser = new SuscriptorService();
 			s = ser.getSuscriptorByNombreService(username);				
 			c.setIdSuscriptor(s.getIdSuscriptor());
-			c.setTipo("Bullying");
+			c.setTipo("REGALO");
 				
 			Date fechaActual = new Date(System.currentTimeMillis());
 			Calendar calendar = Calendar.getInstance();
@@ -132,29 +132,9 @@ public class AltaSuscriptor extends HttpServlet {
 	    // Crear el centro
 	    Centro centro = new Centro(codigo_centro, nombre, responsable, tipoCentro, numAlumnos, email, numTelefono, password);
 	    centro.setIdSuscriptor(idResponsable);
-
-	    if (centroService.addCentro(centro)) {
-	        // Asignar cupón al responsable
-	        Cupon c = new Cupon();
-	        c.setIdSuscriptor(idResponsable);
-	        c.setTipo("Bullying");
-
-	        Calendar calendar = Calendar.getInstance();
-	        calendar.setTime(new Date(System.currentTimeMillis()));
-	        calendar.add(Calendar.YEAR, 1);
-	        Date fechaCaducidad = new Date(calendar.getTimeInMillis());
-
-	        c.setFechaCaducidad(fechaCaducidad);
-	        c.setEstado("pendiente");
-
-	        CuponService cup = new CuponService();
-	        cup.asignarCuponService(c);
-
-	        response.sendRedirect("index.jsp");
-	    } else {
-	        request.setAttribute("errorMensaje", "Error al registrar centro. Inténtalo de nuevo.");
-	        request.getRequestDispatcher("suscribirse.jsp").forward(request, response);
-	    }
+	    centroService.addCentro(centro);
+	    
+	    response.sendRedirect("index.jsp");
 	}
 	else {
 		
