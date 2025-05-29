@@ -97,6 +97,8 @@ public class ProcesarPartidaServlet extends HttpServlet {
     				partida.setTipoPartida("centro");
     				p.registrarPartida(partida, s.getSuscriptorByNombreService(username).getIdSuscriptor());
     			}
+    		
+    		
 
     		response.sendRedirect("PerfilServlet");
     	}
