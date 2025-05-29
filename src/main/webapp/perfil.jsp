@@ -415,8 +415,8 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 	
 	<!-- Botones de acción para usuarios -->
 	<div class="admin-buttons-container">
-		<a href="private/descargarJuego.jsp" class="btn admin-btn admin-btn-usuarios">
-			<i class="fas fa-download"></i> DESCARGAR JUEGO
+		<a href="CompraServlet" class="btn admin-btn admin-btn-usuarios">
+			<i class="fas fa-shopping-cart"></i> MIS COMPRAS
 		</a>
 		<a href="comprarCupon.jsp" class="btn admin-btn admin-btn-ranking">
 			<i class="fas fa-shopping-cart"></i> COMPRAR CUPONES
