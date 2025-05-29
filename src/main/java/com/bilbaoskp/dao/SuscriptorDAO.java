@@ -412,4 +412,31 @@ public class SuscriptorDAO {
         
         return suscriptores;
     }
+ // Añade este método a tu clase SuscriptorDAO existente (reemplaza el método contarCentros)
+
+    public int contarCentrosPendientes() {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int count = 0;
+        
+        try {
+            con = AccesoBD.getConnection();
+            // Contar centros que están pendientes de aprobación
+            String sql = "SELECT COUNT(*) FROM suscriptores WHERE tipo = 'centro' AND estado = 'pendiente'";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            AccesoBD.closeConnection(rs, ps, con);
+        }
+        
+        return count;
+    }
+
 }
