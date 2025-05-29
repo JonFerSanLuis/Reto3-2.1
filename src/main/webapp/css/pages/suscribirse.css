@@ -367,7 +367,7 @@ body {
 
 /*prueba*/
 .main-content {
-    min-height: calc(100vh - 100px); /* Ajusta 100px según la altura de tu header */
+    min-height: calc(100vh - 100px); 
     display: flex;
     justify-content: center;
     align-items: center;
