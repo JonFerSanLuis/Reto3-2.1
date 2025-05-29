@@ -1,6 +1,7 @@
 package com.bilbaoskp.dao;
 
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,13 +64,15 @@ public class CuponDAO {
 	    
 	    try {
 	        con = AccesoBD.getConnection();
-	        String sql = "UPDATE cupones SET tipo = ? WHERE id_cupon = ?";
+	        String sql = "UPDATE cupones SET estado = ? WHERE id_suscriptor = ? AND estado != ? LIMIT 1";
 	        
 	        ps = con.prepareStatement(sql);
 
 	        ps.setString(1, estado);
 
 	        ps.setInt(2, id);
+	        
+	        ps.setString(3, estado);
 
 	        result = ps.executeUpdate() > 0;
 	        
@@ -132,6 +135,32 @@ public class CuponDAO {
         
         return cupones;
     }
+	
+	public List<Cupon> getCuponesDisponibles(int id) {
+        List<Cupon> cupones = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            con = AccesoBD.getConnection();
+            String sql = "SELECT * FROM cupones WHERE id_suscriptor = (SELECT id_suscriptor FROM suscriptores WHERE id_suscriptor = ?) AND estado = 'disponible'";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Cupon cupon = mapResultSetToCupon(rs);
+                cupones.add(cupon);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            AccesoBD.closeConnection(rs, ps, con);
+        }
+        
+        return cupones;
+    }
 
 	public List<Cupon> obtenerCuponesPorSuscriptor(String username) {
 	    List<Cupon> cupones = new ArrayList<>();
@@ -170,6 +199,35 @@ public class CuponDAO {
             con = AccesoBD.getConnection();  // Obtener la conexión
             ps = con.prepareStatement(sql);  // Preparar la consulta
             ps.setInt(1, idCupon);  // Establecer el parámetro para el ID del cupón
+
+            int rowsAffected = ps.executeUpdate();  // Ejecutar la consulta y obtener el número de filas afectadas
+
+            // Si se eliminó al menos un registro, la eliminación fue exitosa
+            if (rowsAffected > 0) {
+                result = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();  // En caso de error, imprimir la traza de la excepción
+        } finally {
+            // Cerrar la conexión y los recursos
+            AccesoBD.closeConnection(null, ps, con);
+        }
+
+        return result;  // Devolver el resultado de la operación
+    }
+	
+	public boolean eliminarCuponbySus(int idSus) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean result = false;
+        
+        String sql = "DELETE FROM cupones WHERE id_suscriptor = ? LIMIT 1;";
+        	
+        try {
+            con = AccesoBD.getConnection();  // Obtener la conexión
+            ps = con.prepareStatement(sql);  // Preparar la consulta
+            ps.setInt(1, idSus);  // Establecer el parámetro para el ID del cupón
 
             int rowsAffected = ps.executeUpdate();  // Ejecutar la consulta y obtener el número de filas afectadas
 
