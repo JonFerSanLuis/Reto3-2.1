@@ -219,7 +219,7 @@ public class AdminUsuariosServlet extends HttpServlet {
 				for (int a = 0; a < alumnos; a++) {
 					Cupon cupon = new Cupon();
 					cupon.setIdSuscriptor(id);
-					cupon.setTipo("Bullying");
+					cupon.setTipo("REGALO");
 
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTime(new Date(System.currentTimeMillis()));

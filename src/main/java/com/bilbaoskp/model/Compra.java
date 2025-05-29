@@ -3,6 +3,7 @@ package com.bilbaoskp.model;
 import java.util.Date;
 
 public class Compra {
+	private String producto;
     private int codCompra;
     private double pago;
     private Date fecha;
@@ -12,7 +13,8 @@ public class Compra {
     public Compra() {
     }
 
-    public Compra(int codCompra, double pago, Date fecha, int idSuscriptor) {
+    public Compra(String producto, int codCompra, double pago, Date fecha, int idSuscriptor) {
+    	this.producto = producto;
         this.codCompra = codCompra;
         this.pago = pago;
         this.fecha = fecha;
@@ -20,11 +22,20 @@ public class Compra {
     }
 
     // Getters y Setters
+    
     public int getCodCompra() {
         return codCompra;
     }
 
-    public void setCodCompra(int codCompra) {
+    public String getProducto() {
+		return producto;
+	}
+
+	public void setProducto(String producto) {
+		this.producto = producto;
+	}
+
+	public void setCodCompra(int codCompra) {
         this.codCompra = codCompra;
     }
 

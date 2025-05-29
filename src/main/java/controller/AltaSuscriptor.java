@@ -79,7 +79,7 @@ public class AltaSuscriptor extends HttpServlet {
 			SuscriptorService ser = new SuscriptorService();
 			s = ser.getSuscriptorByNombreService(username);				
 			c.setIdSuscriptor(s.getIdSuscriptor());
-			c.setTipo("Bullying");
+			c.setTipo("REGALO");
 				
 			Date fechaActual = new Date(System.currentTimeMillis());
 			Calendar calendar = Calendar.getInstance();
