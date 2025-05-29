@@ -22,7 +22,6 @@ body::before {
     z-index: -2;
 }
 
-/* Capa oscura encima del fondo */
 body::after {
     content: "";
     position: fixed;
@@ -30,7 +29,7 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Ajusta el 0.5 para más o menos oscuridad */
+    background-color: rgba(0, 0, 0, 0.5); 
     z-index: -1;
 }
 .header {
@@ -43,16 +42,24 @@ body::after {
 }
 
 .header.transparent {
-    background-color: rgba(0, 0, 0, 0.3); /* Negro translúcido al estar arriba */
+    background-color: rgba(0, 0, 0, 0.3); 
     box-shadow: none;
 }
 
 .header.solid {
-    background-color: black; /* Negro sólido al hacer scroll */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra opcional */
+    background-color: black; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
+}
+.main-content {
+  padding-top: 75px; 
 }
 
-
+.page-title {
+  color: white !important;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 0;
+}
 .cupon-container {
   display: flex;
   flex-direction: column;
