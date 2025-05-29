@@ -19,6 +19,7 @@ public class CompraDAO {
         compra.setProducto(rs.getString("producto"));
         compra.setCodCompra(rs.getInt("cod_compra"));
         compra.setFecha(rs.getDate("fecha"));
+        compra.setPago(rs.getDouble("pago"));
         compra.setIdSuscriptor(rs.getInt("id_suscriptor"));
         
         return compra;
