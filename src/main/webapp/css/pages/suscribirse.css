@@ -364,3 +364,12 @@ body {
   color: white;                              
   border-radius: 5px;                        
 }
+
+/*prueba*/
+.main-content {
+    min-height: calc(100vh - 100px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
