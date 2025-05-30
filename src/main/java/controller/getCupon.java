@@ -27,6 +27,7 @@ public class getCupon extends HttpServlet {
 	
 	Cookie[] cookies;
 	String nombre;
+	String tipo;
 	private static final long serialVersionUID = 1L;
 	CuponService cuponService = new CuponService();
        
@@ -74,6 +75,8 @@ public class getCupon extends HttpServlet {
 					if ("usuario".equals(cookie.getName())) {
 						nombre = cookie.getValue();
 						break;
+					}else if ("tipo".equals(cookie.getName())) {
+						tipo = cookie.getValue();
 					}
 				}
 			}
@@ -110,15 +113,23 @@ public class getCupon extends HttpServlet {
 
 			switch (cupon) {
 			case "SOLEDAD":
+				
 				c.setTipo("Bullying");
-				cupService.asignarCuponService(c);
-				Compra compra = new Compra();
-				compra.setFecha(fechaActual);
-				compra.setIdCupon(c.getIdCupon());
-				compra.setIdSuscriptor(suscriptorService.getSuscriptorByNombreService(nombre).getIdSuscriptor());
-				compra.setPago(1.5);
-				compra.setProducto("Cupon - Bullying");
-				cs.addCompra(compra);
+				if(cupService.asignarCuponService(c)) {
+					Compra compra = new Compra();
+					compra.setFecha(fechaActual);
+					int id = cupService.getLastIdService();
+					compra.setIdCupon(id);
+					compra.setIdSuscriptor(suscriptorService.getSuscriptorByNombreService(nombre).getIdSuscriptor());
+					if (tipo.equals("centro")) {
+						compra.setPago(0.0);
+					}else {
+						compra.setPago(1.5);
+					}
+					compra.setProducto("Cupon - Bullying");
+					cs.addCompra(compra);
+				}
+				
 				break;
 
 			case "MIL Y UNA PREGUNTAS":

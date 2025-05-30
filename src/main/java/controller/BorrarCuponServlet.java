@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bilbaoskp.model.Cupon;
+
 import service.CuponService;
 
 @WebServlet("/BorrarCuponServlet")
@@ -22,20 +24,21 @@ public class BorrarCuponServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Obtener el ID del cupón desde el formulario
         String idCupon = request.getParameter("idCupon");
-
-        if (idCupon != null) {
+        System.out.println(idCupon);
+        Cupon cupon = cuponService.getCuponByIdCuponService(Integer.parseInt(idCupon));
+        if (idCupon != null && cupon.getEstado().equals("disponible")) {
             // Eliminar el cupón usando el servicio
             boolean eliminado = cuponService.eliminarCupon(Integer.parseInt(idCupon));
 
             if (eliminado) {
                 // Redirigir al perfil con un mensaje de éxito
                 request.getSession().setAttribute("mensaje", "Cupón eliminado correctamente.");
-            } else {
+            }else {
                 // Redirigir al perfil con un mensaje de error
                 request.getSession().setAttribute("error", "Error al eliminar el cupón.");
             }
         } else {
-            request.getSession().setAttribute("error", "ID de cupón no proporcionado.");
+            request.getSession().setAttribute("error", "El cupón está en uso o ya ha sido gastado");
         }
 
         // Redirigir al perfil

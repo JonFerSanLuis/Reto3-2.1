@@ -57,6 +57,14 @@ public class CuponDAO {
         return cupon;
     }
 	
+	private int mapResultSetToIDCupon(ResultSet rs) throws SQLException {
+        Cupon cupon = new Cupon();
+        int id;
+        id = rs.getInt("id_cupon");
+
+        return id;
+    }
+	
 	public boolean updateCuponEstado(int id, String estado) {
 	    Connection con = null;
 	    PreparedStatement ps = null;
@@ -108,6 +116,55 @@ public class CuponDAO {
         }
         
         return cupon;
+    }
+	
+	public Cupon getCuponByCuponId(int id) {
+        Cupon cupon = new Cupon();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            con = AccesoBD.getConnection();
+            String sql = "SELECT * FROM cupones WHERE id_cupon = ? ;";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+            	cupon = mapResultSetToCupon(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            AccesoBD.closeConnection(rs, ps, con);
+        }
+        
+        return cupon;
+    }
+	
+	public int getLastID() {
+        int id = 0;
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            con = AccesoBD.getConnection();
+            String sql = "SELECT id_cupon FROM cupones ORDER BY id_cupon DESC LIMIT 1;";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+            	id = mapResultSetToIDCupon(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            AccesoBD.closeConnection(rs, ps, con);
+        }
+        
+        return id;
     }
 	
 	public List<Cupon> getCuponesByIdSus(int id) {

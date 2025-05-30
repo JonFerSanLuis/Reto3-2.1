@@ -41,4 +41,14 @@ public class CuponService {
 		CuponDAO c = new CuponDAO();
         return c.eliminarCupon(idCupon);  // Llama al DAO para eliminar el cupón
     }
+	
+	public int getLastIdService() {
+		CuponDAO c = new CuponDAO();
+		return c.getLastID();
+	}
+	
+	public Cupon getCuponByIdCuponService(int id) {
+		CuponDAO c = new CuponDAO();
+		return c.getCuponByCuponId(id);
+	}
 }
