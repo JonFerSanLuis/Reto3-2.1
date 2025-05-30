@@ -12,11 +12,26 @@ body {
 }
 
 /* Header y navegación */
-.header {
+/*.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #333;
+  background-color: black;
+  padding: 15px 30px;
+  width: 100%;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}*/
+
+.header {
+  position: fixed;              
+  top: 0;                       
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
   padding: 15px 30px;
   width: 100%;
   z-index: 10;

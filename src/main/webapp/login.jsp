@@ -95,7 +95,7 @@
     <div class="auth-image-content">
         <h2 class="auth-image-title"><fmt:message key="login.bienvenido" /></h2>
         <p class="auth-image-text"><fmt:message key="login.bienvenidoDesc" /></p>
-        <a href="#" class="btn" style="margin-top:15px;background-color:white;color:#333;">
+        <a href="informacion.jsp" class="btn" style="margin-top:15px;background-color:white;color:#333;">
             <fmt:message key="login.conoceMas"/>
         </a>
     </div>

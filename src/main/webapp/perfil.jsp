@@ -215,8 +215,9 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 		</div>
 	</header>
 
-	<div class="main-content">
-		<h1 class="page-title">Tu Perfil</h1>
+	<div class="main-content" style="margin-top: 80px;">
+  <h1 class="page-title">Tu Perfil</h1>
+
 
 		<!-- Mensajes de éxito o error -->
 		<c:if test="${not empty sessionScope.mensaje}">

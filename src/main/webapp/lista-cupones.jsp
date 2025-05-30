@@ -168,12 +168,13 @@ if (cookies != null) {
 
 	<div class="main-content">
 		<div class="admin-container">
-			<div class="cupones-header">
-				<h1 class="page-title">Mis Cupones</h1>
-				<a href="PerfilServlet" class="btn-volver">
-					<i class="fas fa-arrow-left"></i> Volver al Perfil
-				</a>
-			</div>
+			<div class="cupones-header" style="margin-top: 80px;">
+  <h1 class="page-title">Mis Cupones</h1>
+  <a href="PerfilServlet" class="btn-volver">
+    <i class="fas fa-arrow-left"></i> Volver al Perfil
+  </a>
+</div>
+
 
 			<!-- Estadísticas de cupones -->
 			<div class="cupones-stats">

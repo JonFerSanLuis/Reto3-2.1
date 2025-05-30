@@ -97,7 +97,10 @@
                 <div class="auth-image-content">
                     <h2 class="auth-image-title"><fmt:message key="suscribirse.unete" /></h2>
                     <p class="auth-image-text"><fmt:message key="suscribirse.uneteDesc" /></p>
-                    <a href="#" class="btn" style="margin-top: 15px; background-color: white; color: #333;"><fmt:message key="suscribirse.conoceMas" /></a>
+                   <a href="informacion.jsp" class="btn" style="margin-top: 15px; background-color: white; color: #333;">
+    				<fmt:message key="suscribirse.conoceMas" />
+					</a>
+
                 </div>
             </div>
             <div class="auth-forms">

@@ -75,11 +75,12 @@
         </div>
     </header>
 
-    <div class="container download-container">
-        <div class="download-header">
-            <h1 class="download-title"><fmt:message key="descargar.titulo" /></h1>
-            <p class="download-subtitle"><fmt:message key="descargar.subtitulo" /></p>
-        </div>
+   <div class="container download-container" style="margin-top: 110px;">
+    <div class="download-header">
+        <h1 class="download-title"><fmt:message key="descargar.titulo" /></h1>
+        <p class="download-subtitle"><fmt:message key="descargar.subtitulo" /></p>
+    </div>
+
 
         <div class="download-content">
             <div class="row">
