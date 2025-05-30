@@ -11,5 +11,10 @@ public class CompraService {
 		CompraDAO c = new CompraDAO();
 		return c.getComprasByIdSus(id);
 	}
+	
+	public boolean addCompra (Compra compra) {
+		CompraDAO c = new CompraDAO();
+		return c.crearCompra(compra);
+	}
 
 }

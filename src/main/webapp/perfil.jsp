@@ -216,7 +216,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 	</header>
 
 	<div class="main-content">
-		<h1 class="page-title">Perfil del suscriptor</h1>
+		<h1 class="page-title">Tu Perfil</h1>
 
 		<!-- Mensajes de éxito o error -->
 		<c:if test="${not empty sessionScope.mensaje}">
@@ -234,7 +234,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 
 		<div class="admin-container">
 			<section class="search-section">
-				<h2 class="search-title">Nombre usuario: ${username}</h2>
+				<h2 class="search-title">¡ Bienvenido ${username} !</h2>
 			</section>
 
 			<%

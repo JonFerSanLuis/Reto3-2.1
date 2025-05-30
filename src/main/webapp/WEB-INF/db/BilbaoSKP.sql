@@ -63,18 +63,18 @@ CREATE TABLE IF NOT EXISTS `clases` (
 -- Volcando estructura para tabla bilbaoskp.compra
 CREATE TABLE IF NOT EXISTS `compra` (
   `cod_compra` int(11) NOT NULL AUTO_INCREMENT,
-  `producto` varchar(50) DEFAULT NULL,
+  `id_cupon` int(11) NOT NULL,
+  `producto` varchar(50) NOT NULL,
   `pago` double NOT NULL DEFAULT 0,
   `fecha` date NOT NULL,
   `id_suscriptor` int(11) NOT NULL,
-  PRIMARY KEY (`cod_compra`),
-  KEY `FK_compra_suscriptores` (`id_suscriptor`),
-  CONSTRAINT `FK_compra_suscriptores` FOREIGN KEY (`id_suscriptor`) REFERENCES `suscriptores` (`id_suscriptor`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`cod_compra`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla bilbaoskp.compra: ~1 rows (aproximadamente)
-INSERT INTO `compra` (`cod_compra`, `producto`, `pago`, `fecha`, `id_suscriptor`) VALUES
-	(3, 'cupon', 1.5, '2025-05-29', 42);
+INSERT INTO `compra` (`cod_compra`, `id_cupon`, `producto`, `pago`, `fecha`, `id_suscriptor`) VALUES
+	(3, 0, 'cupon', 1.5, '2025-05-29', 0),
+	(4, 0, 'Cupon - Bullying', 1.5, '2025-05-30', 42);
 
 -- Volcando estructura para tabla bilbaoskp.cupones
 CREATE TABLE IF NOT EXISTS `cupones` (
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `cupones` (
   PRIMARY KEY (`id_cupon`),
   KEY `FK__suscriptores` (`id_suscriptor`),
   CONSTRAINT `FK__suscriptores` FOREIGN KEY (`id_suscriptor`) REFERENCES `suscriptores` (`id_suscriptor`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=264 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=265 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla bilbaoskp.cupones: ~185 rows (aproximadamente)
 INSERT INTO `cupones` (`id_cupon`, `id_suscriptor`, `tipo`, `fecha_caducidad`, `estado`) VALUES
@@ -274,7 +274,8 @@ INSERT INTO `cupones` (`id_cupon`, `id_suscriptor`, `tipo`, `fecha_caducidad`, `
 	(260, 42, 'Bullying', '2026-05-29', 'disponible'),
 	(261, 42, 'Bullying', '2026-05-29', 'disponible'),
 	(262, 42, 'Bullying', '2026-05-29', 'disponible'),
-	(263, 42, 'Bullying', '2026-05-29', 'disponible');
+	(263, 42, 'Bullying', '2026-05-29', 'disponible'),
+	(264, 42, 'Bullying', '2026-05-30', 'disponible');
 
 -- Volcando estructura para tabla bilbaoskp.escape_room
 CREATE TABLE IF NOT EXISTS `escape_room` (

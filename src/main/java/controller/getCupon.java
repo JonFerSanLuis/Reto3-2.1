@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bilbaoskp.model.Compra;
 import com.bilbaoskp.model.Cupon;
 import com.bilbaoskp.model.Suscriptor;
+
+import service.CompraService;
 import service.CuponService;
 import service.SuscriptorService;
 
@@ -94,6 +97,7 @@ public class getCupon extends HttpServlet {
 			}
 
 			CuponService cupService = new CuponService();
+			CompraService cs = new CompraService();
 			Cupon c = new Cupon();
 			c.setIdSuscriptor(s.getIdSuscriptor());
 			c.setEstado("disponible");
@@ -108,6 +112,13 @@ public class getCupon extends HttpServlet {
 			case "SOLEDAD":
 				c.setTipo("Bullying");
 				cupService.asignarCuponService(c);
+				Compra compra = new Compra();
+				compra.setFecha(fechaActual);
+				compra.setIdCupon(c.getIdCupon());
+				compra.setIdSuscriptor(suscriptorService.getSuscriptorByNombreService(nombre).getIdSuscriptor());
+				compra.setPago(1.5);
+				compra.setProducto("Cupon - Bullying");
+				cs.addCompra(compra);
 				break;
 
 			case "MIL Y UNA PREGUNTAS":

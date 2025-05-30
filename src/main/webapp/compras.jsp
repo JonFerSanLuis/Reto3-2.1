@@ -132,8 +132,8 @@
 										<td>
 											<!-- Formulario para borrar el cupón -->
 											<form action="BorrarCuponServlet" method="post">
-												<input type="hidden" name="idSuscriptor"
-													value="${compra.idSuscriptor}">
+												<input type="hidden" name="idCupon"
+													value="${compra.idCupon}">
 												<button type="submit" class="btn btn-danger">DEVOLVER</button>
 											</form>
 										</td>

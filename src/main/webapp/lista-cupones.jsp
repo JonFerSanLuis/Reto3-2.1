@@ -220,7 +220,6 @@ if (cookies != null) {
 								<th>TIPO</th>
 								<th>FECHA CADUCIDAD</th>
 								<th>ESTADO</th>
-								<th>ACCIÓN</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -240,19 +239,6 @@ if (cookies != null) {
 											<td><span
 												class="status-badge ${cupon.estado == 'disponible' ? 'status-active' : 'status-inactive'}">
 													${cupon.estado} </span></td>
-											<td>
-												<c:if test="${cupon.estado == 'disponible'}">
-													<!-- Formulario para devolver el cupón -->
-													<form action="BorrarCuponServlet" method="post">
-														<input type="hidden" name="idCupon"
-															value="${cupon.idCupon}">
-														<button type="submit" class="btn btn-danger">DEVOLVER</button>
-													</form>
-												</c:if>
-												<c:if test="${cupon.estado != 'disponible'}">
-													<span class="text-muted">No disponible</span>
-												</c:if>
-											</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>
