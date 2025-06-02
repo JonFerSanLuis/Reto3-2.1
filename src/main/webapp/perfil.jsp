@@ -283,14 +283,14 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 					<div class="info-box bg-success">
 						<div class="info-box-content">
 							<div>
-								<div class="info-box-number">${centrosRegistrados}</div>
-								<div class="info-box-text">Centros Registrados</div>
+								<div class="info-box-number">${centrosPendientes}</div>
+								<div class="info-box-text">Centros Pendientes</div>
 							</div>
 						</div>
 						<div class="info-box-icon">
 							<i class="fas fa-school"></i>
 						</div>
-						<a href="AdminUsuarios?filtro=centros" class="info-box-footer">
+						<a href="AdminUsuarios?action=listarPendientes" class="info-box-footer">
 							Más información <i class="fas fa-arrow-circle-right"></i>
 						</a>
 					</div>
