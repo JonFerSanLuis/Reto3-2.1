@@ -50,7 +50,7 @@ if (cookies != null) {
 				<li><a href="PerfilServlet"><fmt:message
 							key="admin.backToDashboard" /></a></li>
 				<li><a href="AdminUsuarios?action=listar"
-					<c:if test="${param.action == 'listar' || empty param.action || (param.action == 'editar') || (param.action == 'detalles') }">class="active"</c:if>><fmt:message
+					<c:if test="${param.action == 'listar' || empty param.action || (param.action == 'editar') }">class="active"</c:if>><fmt:message
 							key="admin.manageUsers" /></a></li>
 				<li><a href="AdminUsuarios?action=listarPendientes"><fmt:message
 							key="admin.pendingCenters.title" /></a></li>
@@ -187,12 +187,8 @@ if (cookies != null) {
 													class="action-btn delete-btn"
 													title="<fmt:message key="admin.eliminar" />">
 													<i class="fas fa-trash-alt"></i>
-												</button> <a
-												href="AdminUsuarios?action=detalles&id=${usuario.idSuscriptor}"
-												class="action-btn details-btn"
-												title="<fmt:message key="admin.detalles" />"> <i
-													class="fas fa-info-circle"></i>
-											</a></td>
+												</button>
+												</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>
