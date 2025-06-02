@@ -32,10 +32,10 @@ public class BorrarCuponServlet extends HttpServlet {
 
             if (eliminado) {
                 // Redirigir al perfil con un mensaje de éxito
-                request.getSession().setAttribute("mensaje", "Cupón eliminado correctamente.");
+                request.getSession().setAttribute("mensaje", "Cupón devuelto correctamente.");
             }else {
                 // Redirigir al perfil con un mensaje de error
-                request.getSession().setAttribute("error", "Error al eliminar el cupón.");
+                request.getSession().setAttribute("error", "Error al devolver el cupón.");
             }
         } else {
             request.getSession().setAttribute("error", "El cupón está en uso o ya ha sido gastado");

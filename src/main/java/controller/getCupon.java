@@ -59,6 +59,7 @@ public class getCupon extends HttpServlet {
             for (Cookie cookie : cookies) {
                 if ("usuario".equals(cookie.getName())) {
                     loggedIn = true;
+                    nombre = cookie.getValue();
                     break;
                 }
             }
@@ -71,12 +72,10 @@ public class getCupon extends HttpServlet {
 		} else {
 
 			if (cookies != null) {
-				for (Cookie cookie : cookies) {
-					if ("usuario".equals(cookie.getName())) {
-						nombre = cookie.getValue();
+				for (Cookie cookieType : cookies) {
+					if ("tipo".equals(cookieType.getName())) {
+						tipo = cookieType.getValue();
 						break;
-					}else if ("tipo".equals(cookie.getName())) {
-						tipo = cookie.getValue();
 					}
 				}
 			}
@@ -122,7 +121,7 @@ public class getCupon extends HttpServlet {
 					compra.setIdCupon(id);
 					compra.setIdSuscriptor(suscriptorService.getSuscriptorByNombreService(nombre).getIdSuscriptor());
 					if (tipo.equals("centro")) {
-						compra.setPago(0.0);
+						compra.setPago(0);
 					}else {
 						compra.setPago(1.5);
 					}
