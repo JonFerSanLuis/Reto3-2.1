@@ -102,7 +102,7 @@
 	<div class="main-content">
 		<h1 class="page-title">COMPRAS</h1>
 		
-		<div class="ranking-container">
+		<div class="ranking-container  compras-box">
 			<section class="ranking-table-section">
 				<h2 class="ranking-table-title">Mis Compras</h2>
 				<table class="ranking-table">

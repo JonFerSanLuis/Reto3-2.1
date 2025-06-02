@@ -448,3 +448,54 @@ body {
 	text-decoration: none;
 }
 }
+
+body, html {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+}
+
+
+.main-content {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+ 
+  max-width: 60%; 
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.compras-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.compras-box {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1600px; 
+  box-sizing: border-box;
+  }
+  
+  
+ .ranking-container {
+  width: 150%;
+  margin-left: -25%;
+}
