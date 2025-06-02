@@ -1,22 +1,26 @@
 /* Carrusel perfecto - sin bordes visibles */
 
 .header {
-    /*transition: background-color 0.3s ease, box-shadow 0.3s ease;*/
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     z-index: 1000;
+    height: 90px;
 }
 
 .header.solid {
-    background-color: black; /* Negro sÛlido cuando est· arriba */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background-color: #333333;
+    box-shadow: 0 2px 8px #333333;
 }
 
 .header.transparent {
-    /*background-color: rgba(0, 0, 0, 0.3); /* Transparente al hacer scroll */
     box-shadow: none;
+}
+
+.logo img {
+  height: 160px;
+  width: 210px; 
 }
 
 .carousel-container {
@@ -24,14 +28,14 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
-  background: #000; /* Fondo negro para tapar cualquier peque√±o error */
+  background: #333333;
 }
 
 .carousel {
   display: flex;
   width: 300%;
   height: 100%;
-  animation: slide 12s infinite linear; /* linear para movimiento fluido */
+  animation: slide 12s infinite linear;
   will-change: transform;
 }
 
@@ -56,7 +60,7 @@
   user-select: none;
 }
 
-/* Animaci√≥n para deslizar */
+/* AnimaciÛn para deslizar */
 @keyframes slide {
   0%, 29.999% {
     transform: translateX(0);
@@ -86,12 +90,12 @@
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(51, 51, 51, 0.6);
   padding: 40px;
   border-radius: 10px;
   max-width: 700px;
   width: 90%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(51, 51, 51, 0.3);
   backdrop-filter: blur(5px);
 }
 
@@ -100,7 +104,7 @@
   margin-bottom: 20px;
   font-weight: 700;
   text-transform: uppercase;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 4px rgba(51, 51, 51, 0.5);
   letter-spacing: 2px;
 }
 
@@ -131,7 +135,7 @@
   transition: all 0.3s;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(51, 51, 51, 0.1);
   cursor: pointer;
   display: inline-block;
 }
@@ -140,7 +144,7 @@
 .boton-container button:hover {
   background-color: #e76f51;
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 12px rgba(51, 51, 51, 0.15);
 }
 
 /* Responsivo */
@@ -171,17 +175,23 @@
   }
 }
 
-/* --- NUEVO: Estilos para el men√∫ de idiomas --- */
+.footer-logo img {
+  height: 150px;
+  width: auto;
+}
+
+/* --- Estilos para el men˙ de idiomas --- */
 .idioma-menu a {
-  color: white;               /* Letras blancas */
-  text-decoration: none;      /* Sin subrayado */
-  padding: 8px 12px;          /* Espaciado para mejor hover */
-  display: block;             /* Toda la l√≠nea clickable */
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  display: block;
 }
 
 .idioma-menu a:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Fondo blanquito transl√∫cido */
-  text-decoration: none;                      /* Sin subrayado en hover */
-  color: white;                               /* Letra sigue blanca */
-  border-radius: 5px;                         /* Bordes redondeados */
+  background-color: rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
 }
+

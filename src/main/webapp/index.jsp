@@ -35,7 +35,7 @@
 <body>
     <header class="header">
         <div class="logo">
-            <a href="index.jsp"><img src="img/logo.png" alt="Logo Educación Divertida"></a>
+            <a href="index.jsp"><img src="img/BILBAOSKP.png" alt="Logo Educación Divertida"></a>
         </div>
 
         <nav class="nav-container">
@@ -113,7 +113,8 @@
         <div class="footer-container">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="img/logo.png" alt="Logo Educación Divertida">
+                    <img src="img/BilbaoLogo.png" alt="Logo Educación Divertida">
+                    <img alt="logo webcrafters" src="img/logo.png">
                 </div>
                 <p class="footer-description"><fmt:message key="footer.descripcion" /></p>
                 <div class="social-links">
@@ -154,7 +155,7 @@
         </div>
     </footer>
 
-    <script>
+
         document.addEventListener('DOMContentLoaded', function() {
             const idiomas = document.querySelector('.idiomas');
             document.addEventListener('click', function(e) {
@@ -165,22 +166,13 @@
                 }
             });
         });
+        <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const header = document.querySelector(".header");
-
-            function toggleHeader() {
-                if (window.scrollY > 50) {
-                    header.classList.add("transparent");
-                    header.classList.remove("solid");
-                } else {
-                    header.classList.add("solid");
-                    header.classList.remove("transparent");
-                }
-            }
-
-            toggleHeader(); // Ejecutar al cargar
-            window.addEventListener("scroll", toggleHeader);
+          const header = document.querySelector(".header");
+          if (header) {
+            header.style.backgroundColor = "#333333";
+          }
         });
-
+      
     </script>
 </body>
