@@ -106,6 +106,7 @@
                     <p><fmt:message key="info.sobreNosotrosTexto1" /></p>
                     <p><fmt:message key="info.sobreNosotrosTexto2" /></p>
                     <p><fmt:message key="info.sobreNosotrosTexto3" /></p>
+                    <p><fmt:message key="info.sobreNosotrosTexto4" /></p>
                 </div>
             </section>
 
