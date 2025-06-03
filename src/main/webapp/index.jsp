@@ -125,7 +125,6 @@
                 </div>
             </div>
 
-            <!-- El resto del footer se mantiene igual -->
             <div class="footer-section">
                 <h3 class="footer-title"><fmt:message key="footer.enlacesRapidos" /></h3>
                 <ul class="footer-links">

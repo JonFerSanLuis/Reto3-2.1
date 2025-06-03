@@ -65,6 +65,7 @@ if (cookies != null) {
                         <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                         <li><a href="Ranking"><i class="fas fa-trophy"></i> Ranking</a></li>
                         <li><a href="lista-cupones.jsp"><i class="fas fa-shopping-cart"></i> Comprar Cupones</a></li>
+                        <li><a href="valorar-experiencia.jsp"><i class="fas fa-star"></i> Valorar Experiencia</a></li>
                     </c:if>
                     <li><a href="private/descargarJuego.jsp"><i class="fas fa-download"></i> Descargar Juego</a></li>
                 </ul>
