@@ -40,8 +40,9 @@ if (cookies != null) {
         <aside class="sidebar">
             <div class="sidebar-header">
                 <a href="index.jsp" class="sidebar-logo">
-                    <i class="fas fa-puzzle-piece"></i>
-                    Escape Room
+                	<div class="logo">
+                    <img src="img/BILBAOSKP.png" alt="Logo Educación Divertida" width="200" height="150">
+                    </div>
                 </a>
             </div>
             
@@ -62,7 +63,7 @@ if (cookies != null) {
                     </c:if>
                     <c:if test="${!sessionScope.isAdmin}">
                         <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                        <li><a href="RankingServlet"><i class="fas fa-trophy"></i> Ranking</a></li>
+                        <li><a href="Ranking"><i class="fas fa-trophy"></i> Ranking</a></li>
                         <li><a href="lista-cupones.jsp"><i class="fas fa-shopping-cart"></i> Comprar Cupones</a></li>
                     </c:if>
                     <li><a href="private/descargarJuego.jsp"><i class="fas fa-download"></i> Descargar Juego</a></li>
@@ -223,7 +224,7 @@ if (cookies != null) {
                                     <i class="fas fa-gamepad"></i>
                                 </div>
                             </div>
-                            <a href="RankingServlet" class="stat-more">
+                            <a href="Ranking" class="stat-more">
                                 Ver ranking <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
@@ -238,7 +239,7 @@ if (cookies != null) {
                                     <i class="fas fa-trophy"></i>
                                 </div>
                             </div>
-                            <a href="RankingServlet" class="stat-more">
+                            <a href="Ranking" class="stat-more">
                                 Ver ranking <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>

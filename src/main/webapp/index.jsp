@@ -95,7 +95,7 @@
            <div class="slide"><img src="img/casa2.png" alt="Imagen 3"></div>
        </div>
         <div class="overlay-content">
-            <h1 class="Titulo_parrafo"><fmt:message key="index.titulo" /></h1>
+            <img src="img/BILBAOSKP.png" alt="Logo Educación Divertida" width="500" height="150">
             <p><fmt:message key="index.descripcion" /></p>
            <div class="boton-container">
     <a href="informacion.jsp" class="btn-custom"><fmt:message key="index.sobreNosotros" /></a>
