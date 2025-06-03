@@ -207,9 +207,6 @@ public class SuscriptorDAO {
             ResultSet rs = checkPs.executeQuery();
             
             if (rs.next() && "centro".equals(rs.getString("tipo"))) {
-                // Si es un centro, primero eliminamos de la tabla centros
-                // No es necesario eliminar explícitamente debido a la restricción ON DELETE CASCADE
-                // pero lo hacemos por claridad
                 String deleteCentroSql = "DELETE FROM centros WHERE id_suscriptor = ?";
                 PreparedStatement deleteCentroPs = con.prepareStatement(deleteCentroSql);
                 deleteCentroPs.setInt(1, id);
@@ -220,7 +217,6 @@ public class SuscriptorDAO {
             rs.close();
             checkPs.close();
             
-            // Ahora eliminamos el suscriptor
             String sql = "DELETE FROM suscriptores WHERE id_suscriptor = ?";
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);

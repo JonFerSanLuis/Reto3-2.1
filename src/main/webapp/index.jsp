@@ -154,8 +154,7 @@
             </div>
         </div>
     </footer>
-
-
+	<script>
         document.addEventListener('DOMContentLoaded', function() {
             const idiomas = document.querySelector('.idiomas');
             document.addEventListener('click', function(e) {
@@ -166,7 +165,7 @@
                 }
             });
         });
-        <script>
+        
         document.addEventListener("DOMContentLoaded", function () {
           const header = document.querySelector(".header");
           if (header) {
