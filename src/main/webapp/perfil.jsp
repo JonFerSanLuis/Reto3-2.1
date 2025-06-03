@@ -1,554 +1,397 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
 Cookie[] cookies = request.getCookies();
 String username = null;
-
 if (cookies != null) {
-	for (Cookie cookie : cookies) {
-		if ("usuario".equals(cookie.getName())) {
-	username = java.net.URLDecoder.decode(cookie.getValue(), "UTF-8");
-	break;
-		}
-	}
+    for (Cookie cookie : cookies) {
+        if ("usuario".equals(cookie.getName())) {
+            username = java.net.URLDecoder.decode(cookie.getValue(), "UTF-8");
+            break;
+        }
+    }
 }
-
-// Verificar si el usuario es administrador
-Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
-boolean userIsAdmin = (isAdmin != null && isAdmin);
 %>
 
 <c:set var="idioma"
-	value="${not empty sessionScope.idioma ? sessionScope.idioma : 'es'}"
-	scope="session" />
+    value="${not empty sessionScope.idioma ? sessionScope.idioma : 'es'}"
+    scope="session" />
 <fmt:setLocale value="${idioma}" />
 <fmt:setBundle basename="resources.messages" />
 
 <!DOCTYPE html>
 <html lang="${idioma}">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><fmt:message key="admin.titulo" /></title>
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-	rel="stylesheet">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<!-- CSS -->
-<link rel="stylesheet" href="css/global.css">
-<link rel="stylesheet" href="css/pages/admin-usuarios.css">
-<link rel="stylesheet" href="css/pages/admin-dashboard.css">
-<style>
-.admin-menu {
-	background-color: #f5f5f5;
-	border-radius: 8px;
-	padding: 20px;
-	margin-bottom: 30px;
-}
-
-.admin-menu h2 {
-	color: #333;
-	margin-bottom: 15px;
-}
-
-.admin-menu ul {
-	list-style: none;
-	padding: 0;
-}
-
-.admin-menu li {
-	margin-bottom: 10px;
-}
-
-.admin-menu a {
-	display: block;
-	padding: 10px 15px;
-	background-color: #4a6cf7;
-	color: white;
-	border-radius: 5px;
-	text-decoration: none;
-	transition: background-color 0.3s;
-}
-
-.admin-menu a:hover {
-	background-color: #3a5bd9;
-}
-
-.btn-danger {
-	background-color: #dc3545;
-	color: white;
-	border: none;
-	padding: 10px 15px;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: background-color 0.3s;
-}
-
-.btn-danger:hover {
-	background-color: #c82333;
-}
-/* Estilos simples para el modal */
-.simple-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-
-.simple-modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    text-align: center;
-}
-
-.simple-modal-buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.simple-modal-buttons button {
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.simple-modal-confirm {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-}
-
-.simple-modal-cancel {
-    background-color: #f8f9fa;
-    border: 1px solid #ccc;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard - Escape Room</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/pages/perfil.css">
 </head>
 <body>
-	<header class="header">
-		<div class="logo">
-			<a href="index.jsp"><img src="img/logo.png" alt="Logo"></a>
-		</div>
-		<nav class="nav-container">
-			<ul class="nav-links">
-				<li><a href="informacion.jsp"><fmt:message
-							key="menu.informacion" /></a></li>
-				<li><a href="Ranking"><fmt:message key="menu.ranking" /></a></li>
-				<li><a href="comprarCupon.jsp"><fmt:message
-							key="menu.comprarCupon" /></a></li>
-				<%
-				if (userIsAdmin) {
-				%>
-				<li><a href="AdminUsuarios">Administrar Usuarios</a></li>
-				<%
-				}
-				%>
-			</ul>
-		</nav>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.jsp" class="sidebar-logo">
+                    <i class="fas fa-puzzle-piece"></i>
+                    Escape Room
+                </a>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                    <span class="user-name">${username}</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <c:if test="${sessionScope.isAdmin}">
+                        <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="AdminUsuarios?action=listar"><i class="fas fa-users"></i> Gestionar Usuarios</a></li>
+                        <li><a href="AdminUsuarios?action=listarPendientes"><i class="fas fa-user-plus"></i> Centros Pendientes</a></li>
+                        <li><a href="AdminUsuarios?action=listarSolicitudesBaja"><i class="fas fa-user-minus"></i> Solicitudes de Baja</a></li>
+                    </c:if>
+                    <c:if test="${!sessionScope.isAdmin}">
+                        <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="RankingServlet"><i class="fas fa-trophy"></i> Ranking</a></li>
+                        <li><a href="lista-cupones.jsp"><i class="fas fa-shopping-cart"></i> Comprar Cupones</a></li>
+                    </c:if>
+                    <li><a href="private/descargarJuego.jsp"><i class="fas fa-download"></i> Descargar Juego</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-		<div class="right-section">
-			<div class="idiomas">
-				<img src="img/idiomas.png" alt="Idiomas">
-				<ul class="idioma-menu">
-					<li><a href="CambiarIdioma?idioma=es"><fmt:message
-								key="idioma.espanol" /></a></li>
-					<li><a href="CambiarIdioma?idioma=en"><fmt:message
-								key="idioma.ingles" /></a></li>
-					<li><a href="CambiarIdioma?idioma=eu"><fmt:message
-								key="idioma.euskera" /></a></li>
-				</ul>
-			</div>
-			<%
-			if (username != null) {
-			%>
-			<a href="PerfilServlet" class="btn">Perfil</a>
-			<%
-			} else {
-			%>
-			<a href="login.jsp" class="btn">Iniciar sesión</a>
-			<%
-			}
-			%>
-			<%
-			if (username != null) {
-			%>
-			<!-- No se muestra el botón descargar si no hay cookie -->
-			<%
-			} else {
-			%>
-			<a href="suscribirse.jsp" class="btn"><fmt:message
-					key="menu.suscribirse" /></a>
-			<%
-			}
-			%>
-			<%
-			if (username != null) {
-			%>
-			<a href="private/descargarJuego.jsp" class="btn"><fmt:message
-					key="menu.descargar" /></a>
-			<%
-			} else {
-			%>
-			<!-- No se muestra el botón descargar si no hay cookie -->
-			<%
-			}
-			%>
-		</div>
-	</header>
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <!-- Header superior -->
+            <header class="top-header">
+                <div class="breadcrumb">
+                    <a href="index.jsp">Inicio</a>
+                    <span>/</span>
+                    <span>Dashboard</span>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="language-selector">
+                        <i class="fas fa-globe"></i>
+                        <select onchange="cambiarIdioma(this.value)">
+                            <option value="es" ${idioma == 'es' ? 'selected' : ''}>Español</option>
+                            <option value="en" ${idioma == 'en' ? 'selected' : ''}>English</option>
+                            <option value="eu" ${idioma == 'eu' ? 'selected' : ''}>Euskera</option>
+                        </select>
+                    </div>
+                    <form action="CerrarSesionServlet" method="post" style="display: inline;">
+                        <button type="submit" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </button>
+                    </form>
+                </div>
+            </header>
 
-	<div class="main-content" style="margin-top: 80px;">
-  <h1 class="page-title">Tu Perfil</h1>
+            <!-- Área de contenido -->
+            <div class="content-area">
+                <h1 class="page-title">Dashboard</h1>
 
+                <!-- Mensajes de éxito o error -->
+                <c:if test="${not empty sessionScope.mensaje}">
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i> ${sessionScope.mensaje}
+                        <c:remove var="mensaje" scope="session" />
+                    </div>
+                </c:if>
+                <c:if test="${not empty sessionScope.error}">
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle"></i> ${sessionScope.error}
+                        <c:remove var="error" scope="session" />
+                    </div>
+                </c:if>
 
-		<!-- Mensajes de éxito o error -->
-		<c:if test="${not empty sessionScope.mensaje}">
-			<div class="alert alert-success">
-				${sessionScope.mensaje}
-				<c:remove var="mensaje" scope="session" />
-			</div>
-		</c:if>
-		<c:if test="${not empty sessionScope.error}">
-			<div class="alert alert-danger">
-				${sessionScope.error}
-				<c:remove var="error" scope="session" />
-			</div>
-		</c:if>
+                <!-- Admin Dashboard -->
+                <c:if test="${sessionScope.isAdmin}">
+                    <div class="stats-grid">
+                        <div class="stat-card primary">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-number">${usuariosActivos}</div>
+                                    <div class="stat-label">Usuarios Activos</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <a href="AdminUsuarios?action=listar" class="stat-more">
+                                Más información <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="stat-card warning">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-number">${solicitudesBaja}</div>
+                                    <div class="stat-label">Solicitudes de Baja</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-user-times"></i>
+                                </div>
+                            </div>
+                            <a href="AdminUsuarios?action=listarSolicitudesBaja" class="stat-more">
+                                Más información <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="stat-card success">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-number">${centrosPendientes}</div>
+                                    <div class="stat-label">Centros Pendientes</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-school"></i>
+                                </div>
+                            </div>
+                            <a href="AdminUsuarios?action=listarPendientes" class="stat-more">
+                                Más información <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="stat-card danger">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-number">${totalCupones}</div>
+                                    <div class="stat-label">Cupones Totales</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-ticket-alt"></i>
+                                </div>
+                            </div>
+                            <a href="ListaCuponesServlet" class="stat-more">
+                                Más información <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </c:if>
 
-		<div class="admin-container">
-			<section class="search-section">
-				<h2 class="search-title">¡ Bienvenido ${username} !</h2>
-			</section>
+                <!-- User Dashboard -->
+                <c:if test="${!sessionScope.isAdmin}">
+                    <div class="stats-grid">
+                        <div class="stat-card primary">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-number">${totalCuponesUsuario}</div>
+                                    <div class="stat-label">Cupones Totales</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-ticket-alt"></i>
+                                </div>
+                            </div>
+                            <a href="#cupones" class="stat-more">
+                                Ver cupones <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="stat-card success">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-number">${cuponesDisponibles}</div>
+                                    <div class="stat-label">Cupones Disponibles</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                            <a href="#cupones" class="stat-more">
+                                Usar cupones <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="stat-card warning">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-number">${partidasJugadas}</div>
+                                    <div class="stat-label">Partidas Jugadas</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                            </div>
+                            <a href="RankingServlet" class="stat-more">
+                                Ver ranking <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="stat-card danger">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-number">${puntosTotales}</div>
+                                    <div class="stat-label">Puntos Totales</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                            </div>
+                            <a href="RankingServlet" class="stat-more">
+                                Ver ranking <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Cupones del usuario -->
+                    <div class="content-card" id="cupones">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <i class="fas fa-ticket-alt"></i> Mis Cupones
+                                <c:if test="${totalCupones > 0}">
+                                    <span style="font-size: 0.8rem; font-weight: normal; color: #7f8c8d;">
+                                        (${totalCupones} cupones en total)
+                                    </span>
+                                </c:if>
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <c:choose>
+                                <c:when test="${empty listaCupones}">
+                                    <div class="empty-state">
+                                        <i class="fas fa-ticket-alt"></i>
+                                        <h3>No tienes cupones disponibles</h3>
+                                        <p>Compra cupones para poder jugar en nuestros escape rooms.</p>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <!-- Controles de paginación superior -->
+                                    <c:if test="${totalPages > 1}">
+                                        <div class="pagination-controls" style="margin-bottom: 1rem;">
+                                            <div class="pagination-info">
+                                                Mostrando ${(currentPage - 1) * pageSize + 1} - ${(currentPage - 1) * pageSize + listaCupones.size()} de ${totalCupones} cupones
+                                            </div>
+                                            <div class="pagination-size">
+                                                <label for="pageSize">Mostrar:</label>
+                                                <select id="pageSize" onchange="changePageSize(this.value)">
+                                                    <option value="10" ${pageSize == 10 ? 'selected' : ''}>10</option>
+                                                    <option value="20" ${pageSize == 20 ? 'selected' : ''}>20</option>
+                                                    <option value="50" ${pageSize == 50 ? 'selected' : ''}>50</option>
+                                                </select>
+                                                por página
+                                            </div>
+                                        </div>
+                                    </c:if>
 
-			<%
-			if (userIsAdmin) {
-			%>
-			<!-- Panel de Administrador con estilos mejorados -->
-			<section class="admin-panel">
-				<h2 class="admin-panel-title">Panel de Administrador</h2>
-				
-				<!-- Tarjetas de información estilo AdminLTE -->
-				<div class="info-box-container">
-					<!-- Tarjeta 1: Usuarios Activos -->
-					<div class="info-box bg-info">
-						<div class="info-box-content">
-							<div>
-								<div class="info-box-number">${usuariosActivos}</div>
-								<div class="info-box-text">Usuarios Activos</div>
-							</div>
-						</div>
-						<div class="info-box-icon">
-							<i class="fas fa-user-check"></i>
-						</div>
-						<a href="AdminUsuarios?filtro=activos" class="info-box-footer">
-							Más información <i class="fas fa-arrow-circle-right"></i>
-						</a>
-					</div>
+                                    <div class="table-container">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th><i class="fas fa-hashtag"></i> ID</th>
+                                                    <th><i class="fas fa-tag"></i> Tipo</th>
+                                                    <th><i class="fas fa-circle"></i> Estado</th>
+                                                    <th><i class="fas fa-calendar"></i> Fecha Caducidad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:forEach var="cupon" items="${listaCupones}">
+                                                    <tr>
+                                                        <td><strong>#${cupon.idCupon}</strong></td>
+                                                        <td>${cupon.tipo}</td>
+                                                        <td>
+                                                            <c:choose>
+                                                                <c:when test="${cupon.estado eq 'disponible'}">
+                                                                    <span class="badge badge-success">Disponible</span>
+                                                                </c:when>
+                                                                <c:when test="${cupon.estado eq 'usado'}">
+                                                                    <span class="badge badge-secondary">Usado</span>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <span class="badge badge-info">${cupon.estado}</span>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </td>
+                                                        <td>
+                                                            <fmt:formatDate value="${cupon.fechaCaducidad}" pattern="dd/MM/yyyy" />
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-					<!-- Tarjeta 2: Usuarios Inactivos -->
-					<div class="info-box bg-warning">
-						<div class="info-box-content">
-							<div>
-								<div class="info-box-number">${usuariosInactivos}</div>
-								<div class="info-box-text">Usuarios Inactivos</div>
-							</div>
-						</div>
-						<div class="info-box-icon">
-							<i class="fas fa-user-slash"></i>
-						</div>
-						<a href="AdminUsuarios?filtro=inactivos" class="info-box-footer">
-							Más información <i class="fas fa-arrow-circle-right"></i>
-						</a>
-					</div>
+                                    <!-- Controles de paginación inferior -->
+                                    <c:if test="${totalPages > 1}">
+                                        <div class="pagination-controls" style="margin-top: 1rem;">
+                                            <div class="pagination-buttons">
+                                                <c:if test="${hasPreviousPage}">
+                                                    <a href="PerfilServlet?page=1&size=${pageSize}" class="pagination-btn">
+                                                        <i class="fas fa-angle-double-left"></i> Primera
+                                                    </a>
+                                                    <a href="PerfilServlet?page=${currentPage - 1}&size=${pageSize}" class="pagination-btn">
+                                                        <i class="fas fa-angle-left"></i> Anterior
+                                                    </a>
+                                                </c:if>
+                                                
+                                                <span class="pagination-current">
+                                                    Página ${currentPage} de ${totalPages}
+                                                </span>
+                                                
+                                                <c:if test="${hasNextPage}">
+                                                    <a href="PerfilServlet?page=${currentPage + 1}&size=${pageSize}" class="pagination-btn">
+                                                        Siguiente <i class="fas fa-angle-right"></i>
+                                                    </a>
+                                                    <a href="PerfilServlet?page=${totalPages}&size=${pageSize}" class="pagination-btn">
+                                                        Última <i class="fas fa-angle-double-right"></i>
+                                                    </a>
+                                                </c:if>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                    
+                    <!-- Opciones de cuenta -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <i class="fas fa-cog"></i> Opciones de Cuenta
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <p style="margin-bottom: 1.5rem; color: #7f8c8d;">
+                                <strong>Estado de tu cuenta:</strong> 
+                                <span class="badge badge-success">${estadoSuscripcion}</span>
+                            </p>
+                            <form action="EliminarSuscripcionServlet" method="post" onsubmit="return confirm('¿Estás seguro de que deseas darte de baja? Esta acción no se puede deshacer.');">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-user-times"></i> Darme de Baja
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </c:if>
+            </div>
 
-					<!-- Tarjeta 3: Centros Registrados -->
-					<div class="info-box bg-success">
-						<div class="info-box-content">
-							<div>
-								<div class="info-box-number">${centrosPendientes}</div>
-								<div class="info-box-text">Centros Pendientes</div>
-							</div>
-						</div>
-						<div class="info-box-icon">
-							<i class="fas fa-school"></i>
-						</div>
-						<a href="AdminUsuarios?action=listarPendientes" class="info-box-footer">
-							Más información <i class="fas fa-arrow-circle-right"></i>
-						</a>
-					</div>
-
-					<!-- Tarjeta 4: Total Cupones -->
-					<div class="info-box bg-danger">
-						<div class="info-box-content">
-							<div>
-								<div class="info-box-number">${totalCupones}</div>
-								<div class="info-box-text">Cupones Totales</div>
-							</div>
-						</div>
-						<div class="info-box-icon">
-							<i class="fas fa-ticket-alt"></i>
-						</div>
-						<a href="comprarCupon.jsp" class="info-box-footer">
-							Más información <i class="fas fa-arrow-circle-right"></i>
-						</a>
-					</div>
-				</div>
-				
-				<!-- Botones de administrador mejorados -->
-				<div class="admin-buttons-container">
-					<a href="AdminUsuarios" class="btn admin-btn admin-btn-usuarios">
-						<i class="fas fa-users-cog"></i> GESTIONAR USUARIOS
-					</a>
-					<a href="finalizar-ranking.jsp" class="btn admin-btn admin-btn-ranking">
-						<i class="fas fa-trophy"></i> FINALIZAR RANKING
-					</a>
-				</div>
-			</section>
-			<%
-			} else {
-			%>
-<!-- Panel de Usuario Normal -->
-<section class="admin-panel">
-	<h2 class="admin-panel-title">Mi Dashboard</h2>
-	
-	<!-- Tarjetas de información para usuarios -->
-	<div class="info-box-container">
-		<!-- Tarjeta 1: Mis Cupones -->
-		<div class="info-box bg-info">
-			<div class="info-box-content">
-				<div>
-					<div class="info-box-number">${totalCuponesUsuario}</div>
-					<div class="info-box-text">Mis Cupones</div>
-				</div>
-			</div>
-			<div class="info-box-icon">
-				<i class="fas fa-ticket-alt"></i>
-			</div>
-			<a href="ListaCuponesServlet" class="info-box-footer">
-				Ver detalles <i class="fas fa-arrow-circle-right"></i>
-			</a>
-		</div>
-
-		<!-- Tarjeta 2: Partidas Jugadas -->
-		<div class="info-box bg-success">
-			<div class="info-box-content">
-				<div>
-					<div class="info-box-number">${partidasJugadas}</div>
-					<div class="info-box-text">Partidas Jugadas</div>
-				</div>
-			</div>
-			<div class="info-box-icon">
-				<i class="fas fa-gamepad"></i>
-			</div>
-			<a href="Ranking" class="info-box-footer">
-				Ver ranking <i class="fas fa-arrow-circle-right"></i>
-			</a>
-		</div>
-
-		<!-- Tarjeta 3: Puntos Totales -->
-		<div class="info-box bg-warning">
-			<div class="info-box-content">
-				<div>
-					<div class="info-box-number">${puntosTotales}</div>
-					<div class="info-box-text">Puntos Totales</div>
-				</div>
-			</div>
-			<div class="info-box-icon">
-				<i class="fas fa-star"></i>
-			</div>
-			<a href="Ranking" class="info-box-footer">
-				Ver ranking <i class="fas fa-arrow-circle-right"></i>
-			</a>
-		</div>
-
-		<!-- Tarjeta 4: Estado Suscripción -->
-		<div class="info-box ${estadoSuscripcion == 'activo' ? 'bg-success' : 'bg-danger'}">
-			<div class="info-box-content">
-				<div>
-					<div class="info-box-number">
-						<c:choose>
-							<c:when test="${estadoSuscripcion == 'activo'}">
-								<i class="fas fa-check"></i>
-							</c:when>
-							<c:otherwise>
-								<i class="fas fa-times"></i>
-							</c:otherwise>
-						</c:choose>
-					</div>
-					<div class="info-box-text">
-						<c:choose>
-							<c:when test="${estadoSuscripcion == 'activo'}">Suscripción Activa</c:when>
-							<c:otherwise>Suscripción Inactiva</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
-			</div>
-			<div class="info-box-icon">
-				<i class="fas fa-user-check"></i>
-			</div>
-			<a href="comprarCupon.jsp" class="info-box-footer">
-				<c:choose>
-					<c:when test="${estadoSuscripcion == 'activo'}">Comprar cupones</c:when>
-					<c:otherwise>Renovar suscripción</c:otherwise>
-				</c:choose>
-				<i class="fas fa-arrow-circle-right"></i>
-			</a>
-		</div>
-	</div>
-	
-	<!-- Botones de acción para usuarios -->
-	<div class="admin-buttons-container">
-		<a href="CompraServlet" class="btn admin-btn admin-btn-usuarios">
-			<i class="fas fa-shopping-cart"></i> MIS COMPRAS
-		</a>
-		<a href="comprarCupon.jsp" class="btn admin-btn admin-btn-ranking">
-			<i class="fas fa-shopping-cart"></i> COMPRAR CUPONES
-		</a>
-	</div>
-</section>
-<%
-}
-%>
-
-			<div class="action-buttons">
-			    <form action="CerrarSesionServlet" method="post">
-			        <button type="submit" class="btn btn-logout">Cerrar Sesión</button>
-			    </form>
-			    
-			    <% if (!userIsAdmin) { %>
-			    <!-- Mostrar el botón de eliminar suscripción solo si NO es administrador -->
-			    <form id="eliminarForm" action="EliminarSuscripcionServlet" method="post">
-				    <input type="hidden" name="username" value="<%= username %>">
-				    <button type="button" onclick="mostrarConfirmacion()" class="btn btn-danger">Eliminar Suscripción</button>
-				</form>
-				<% } %>
-			</div>
-			
-			<!-- Modal simple de confirmación -->
-<div id="simpleModal" class="simple-modal">
-    <div class="simple-modal-content">
-        <h3>Confirmar</h3>
-        <p>¿Seguro que quieres eliminar la suscripción?</p>
-        <div class="simple-modal-buttons">
-            <button id="simpleCancel" class="simple-modal-cancel">Cancelar</button>
-            <button id="simpleConfirm" class="simple-modal-confirm">Eliminar</button>
-        </div>
+            <!-- Footer -->
+            <footer class="footer">
+                Copyright © 2025 <a href="#">Escape Room Educativo</a>. Todos los derechos reservados.
+                <span style="float: right;">Versión 1.0</span>
+            </footer>
+        </main>
     </div>
-</div>
-		</div>
-	</div>
 
-	<!-- Footer -->
-	<footer class="footer">
-		<div class="footer-container">
-			<div class="footer-section">
-				<div class="footer-logo">
-					<img src="img/logo.png" alt="Logo Educación Divertida">
-				</div>
-				<p class="footer-description">
-					<fmt:message key="footer.descripcion" />
-				</p>
-				<div class="social-links">
-					<a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i
-						class="fab fa-twitter"></i></a> <a href="#"><i
-						class="fab fa-instagram"></i></a> <a href="#"><i
-						class="fab fa-youtube"></i></a>
-				</div>
-			</div>
+    <script>
+        function cambiarIdioma(idioma) {
+            window.location.href = 'CambiarIdioma?idioma=' + idioma + '&redirect=PerfilServlet';
+        }
 
-			<div class="footer-section">
-				<h3 class="footer-title">
-					<fmt:message key="footer.enlacesRapidos" />
-				</h3>
-				<ul class="footer-links">
-					<li><a href="#"><fmt:message key="footer.sobreNosotros" /></a></li>
-					<li><a href="#"><fmt:message key="footer.nuestrosCursos" /></a></li>
-					<li><a href="#"><fmt:message key="footer.testimonios" /></a></li>
-					<li><a href="#"><fmt:message key="footer.blogEducativo" /></a></li>
-					<li><a href="#"><fmt:message
-								key="footer.preguntasFrecuentes" /></a></li>
-				</ul>
-			</div>
-
-			<div class="footer-section">
-				<h3 class="footer-title">
-					<fmt:message key="footer.contacto" />
-				</h3>
-				<div class="footer-contact">
-					<p>
-						<i class="fas fa-map-marker-alt"></i>
-						<fmt:message key="footer.direccion" />
-					</p>
-					<p>
-						<i class="fas fa-phone"></i>
-						<fmt:message key="footer.telefono" />
-					</p>
-					<p>
-						<i class="fas fa-envelope"></i>
-						<fmt:message key="footer.email" />
-					</p>
-					<p>
-						<i class="fas fa-clock"></i>
-						<fmt:message key="footer.horario" />
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="footer-container">
-			<div class="copyright">
-				<fmt:message key="footer.copyright" />
-			</div>
-		</div>
-	</footer>
-
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			const idiomas = document.querySelector('.idiomas');
-			document.addEventListener('click', function(e) {
-				if (idiomas.contains(e.target)) {
-					idiomas.classList.toggle('activo');
-				} else {
-					idiomas.classList.remove('activo');
-				}
-			});
-		});
-		
-		// Funciones simples para el modal
-	    function mostrarConfirmacion() {
-	        document.getElementById('simpleModal').style.display = 'block';
-	    }
-	    
-	    // Configurar cuando se carga la página
-	    document.addEventListener('DOMContentLoaded', function() {
-	        // Botón cancelar
-	        document.getElementById('simpleCancel').onclick = function() {
-	            document.getElementById('simpleModal').style.display = 'none';
-	        };
-	        
-	        // Botón confirmar
-	        document.getElementById('simpleConfirm').onclick = function() {
-	            document.getElementById('eliminarForm').submit();
-	        };
-	    });
-	</script>
+        function changePageSize(size) {
+            window.location.href = 'PerfilServlet?page=1&size=' + size;
+        }
+    </script>
 </body>
 </html>

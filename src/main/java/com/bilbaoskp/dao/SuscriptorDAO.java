@@ -14,40 +14,39 @@ import db.AccesoBD;
 
 public class SuscriptorDAO {
 
-	public boolean addSuscriptor(Suscriptor suscriptor) {
-		Connection con = AccesoBD.getConnection();
-		PreparedStatement ps = null;
+    public boolean addSuscriptor(Suscriptor suscriptor) {
+        Connection con = AccesoBD.getConnection();
+        PreparedStatement ps = null;
 
-		String sql = "INSERT INTO suscriptores (username, estado, fecha_alta, tipo, password, correo, edad) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO suscriptores (username, estado, fecha_alta, tipo, password, correo, edad) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
-		try {
-			ps = con.prepareStatement(sql);
+        try {
+            ps = con.prepareStatement(sql);
 
-			ps.setString(1, suscriptor.getUsername());
-			ps.setString(2, suscriptor.getEstado());
-			ps.setDate(3, new java.sql.Date(suscriptor.getFechaAlta().getTime()));
-			ps.setString(4, suscriptor.getTipo());
-			ps.setString(5, suscriptor.getPassword());
-			ps.setString(6, suscriptor.getCorreo());
-			ps.setInt(7, suscriptor.getEdad());
+            ps.setString(1, suscriptor.getUsername());
+            ps.setString(2, suscriptor.getEstado());
+            ps.setDate(3, new java.sql.Date(suscriptor.getFechaAlta().getTime()));
+            ps.setString(4, suscriptor.getTipo());
+            ps.setString(5, suscriptor.getPassword());
+            ps.setString(6, suscriptor.getCorreo());
+            ps.setInt(7, suscriptor.getEdad());
 
-			if (ps.executeUpdate() > 0) {
-				return true;
-			} else {
-				return false;
-			}
+            if (ps.executeUpdate() > 0) {
+                return true;
+            } else {
+                return false;
+            }
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			AccesoBD.closeConnection(null, ps, con);
-		}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            AccesoBD.closeConnection(null, ps, con);
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public List<Suscriptor> getAllSuscriptores() {
+    public List<Suscriptor> getAllSuscriptores() {
         List<Suscriptor> suscriptores = new ArrayList<>();
         Connection con = null;
         PreparedStatement ps = null;
@@ -257,58 +256,56 @@ public class SuscriptorDAO {
     }
     
     public boolean login(String usuario, String password) {
-    	Connection con = AccesoBD.getConnection();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		
-		String sql = "SELECT username, password FROM suscriptores WHERE username = ? AND password = ?;";
-		
-		try {
-			ps = con.prepareStatement(sql);
-			ps.setString(1, usuario);
-			ps.setString(2, password);
-			
-			rs = ps.executeQuery();
-			if (rs.next()) { 
-	            return true;
-	        } else {
-	            return false;
-	        }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			AccesoBD.closeConnection(rs, ps, con);
-		}
-		return false;
-	}
+        Connection con = AccesoBD.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String sql = "SELECT username, password FROM suscriptores WHERE username = ? AND password = ?;";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, usuario);
+            ps.setString(2, password);
+            
+            rs = ps.executeQuery();
+            if (rs.next()) { 
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            AccesoBD.closeConnection(rs, ps, con);
+        }
+        return false;
+    }
     
     public boolean deleteSuscriptor(String username) {
-		Connection con = AccesoBD.getConnection();
-		PreparedStatement ps = null;
+        Connection con = AccesoBD.getConnection();
+        PreparedStatement ps = null;
 
-		String sql = "DELETE FROM suscriptores WHERE username = ?;";
+        String sql = "DELETE FROM suscriptores WHERE username = ?;";
 
-		try {
-			ps = con.prepareStatement(sql);
+        try {
+            ps = con.prepareStatement(sql);
 
-			ps.setString(1, username);
+            ps.setString(1, username);
 
-			if (ps.executeUpdate() > 0) {
-				return true;
-			} else {
-				return false;
-			}
+            if (ps.executeUpdate() > 0) {
+                return true;
+            } else {
+                return false;
+            }
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			AccesoBD.closeConnection(null, ps, con);
-		}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            AccesoBD.closeConnection(null, ps, con);
+        }
 
-		return false;
-	}
+        return false;
+    }
     
     public int contarUsuariosActivos() {
         Connection con = null;
@@ -334,7 +331,8 @@ public class SuscriptorDAO {
         return count;
     }
 
-    public int contarUsuariosInactivos() {
+    // MÉTODO NUEVO: Contar solicitudes de baja en lugar de usuarios inactivos
+    public int contarSolicitudesBaja() {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -342,7 +340,7 @@ public class SuscriptorDAO {
         
         try {
             con = AccesoBD.getConnection();
-            String sql = "SELECT COUNT(*) FROM suscriptores WHERE estado = 'inactivo'";
+            String sql = "SELECT COUNT(*) FROM suscriptores WHERE estado = 'solicitud_baja'";
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             
@@ -408,7 +406,6 @@ public class SuscriptorDAO {
         
         return suscriptores;
     }
- // Añade este método a tu clase SuscriptorDAO existente (reemplaza el método contarCentros)
 
     public int contarCentrosPendientes() {
         Connection con = null;
@@ -418,7 +415,6 @@ public class SuscriptorDAO {
         
         try {
             con = AccesoBD.getConnection();
-            // Contar centros que están pendientes de aprobación
             String sql = "SELECT COUNT(*) FROM suscriptores WHERE tipo = 'centro' AND estado = 'pendiente'";
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -434,5 +430,4 @@ public class SuscriptorDAO {
         
         return count;
     }
-
 }

@@ -29,7 +29,8 @@ public class AdminUsuariosServlet extends HttpServlet {
         suscriptorDAO = new SuscriptorDAO();
     }
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         String action = request.getParameter("action");
         
         if (action == null) {
@@ -46,13 +47,17 @@ public class AdminUsuariosServlet extends HttpServlet {
             case "listarPendientes":
                 listarCentrosPendientes(request, response);
                 break;
+            case "listarSolicitudesBaja":
+                listarSolicitudesBaja(request, response);
+                break;
             default:
                 listarUsuarios(request, response);
                 break;
         }
     }
     
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         String action = request.getParameter("action");
         
         if (action == null) {
@@ -72,13 +77,20 @@ public class AdminUsuariosServlet extends HttpServlet {
             case "rechazarCentro":
                 rechazarCentro(request, response);
                 break;
+            case "confirmarBaja":
+                confirmarBajaCentro(request, response);
+                break;
+            case "rechazarBaja":
+                rechazarBajaCentro(request, response);
+                break;
             default:
                 listarUsuarios(request, response);
                 break;
         }
     }
     
-    private void listarUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void listarUsuarios(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         String idBusqueda = request.getParameter("id");
         String nombreBusqueda = request.getParameter("nombre");
         
@@ -102,13 +114,23 @@ public class AdminUsuariosServlet extends HttpServlet {
         request.getRequestDispatcher("private/admin-usuarios.jsp").forward(request, response);
     }
     
-    private void listarCentrosPendientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void listarCentrosPendientes(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         List<Suscriptor> centrosPendientes = suscriptorDAO.getSuscriptoresByTipoAndEstado("centro", "pendiente");
         request.setAttribute("listaCentrosPendientes", centrosPendientes);
         request.getRequestDispatcher("private/admin-pending-centers.jsp").forward(request, response);
     }
     
-    private void mostrarFormularioEdicion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // NUEVA FUNCIONALIDAD: Listar solicitudes de baja
+    private void listarSolicitudesBaja(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        List<Suscriptor> solicitudesBaja = suscriptorDAO.getSuscriptoresByTipoAndEstado("centro", "solicitud_baja");
+        request.setAttribute("listaSolicitudesBaja", solicitudesBaja);
+        request.getRequestDispatcher("private/admin-solicitudes-baja.jsp").forward(request, response);
+    }
+    
+    private void mostrarFormularioEdicion(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             Suscriptor usuario = suscriptorDAO.getSuscriptorById(id);
@@ -124,14 +146,14 @@ public class AdminUsuariosServlet extends HttpServlet {
         }
     }
     
-    private void mostrarDetallesUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void mostrarDetallesUsuario(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             Suscriptor usuario = suscriptorDAO.getSuscriptorById(id);
             
             if (usuario != null) {
                 request.setAttribute("usuario", usuario);
-                // Por ahora redirigimos a la página de edición ya que no tenemos una página de detalles
                 request.getRequestDispatcher("private/admin-editar-usuario.jsp").forward(request, response);
             } else {
                 response.sendRedirect("AdminUsuarios");
@@ -141,7 +163,8 @@ public class AdminUsuariosServlet extends HttpServlet {
         }
     }
     
-    private void actualizarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void actualizarUsuario(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             Suscriptor usuario = suscriptorDAO.getSuscriptorById(id);
@@ -181,7 +204,8 @@ public class AdminUsuariosServlet extends HttpServlet {
         }
     }
     
-    private void eliminarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void eliminarUsuario(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             
@@ -199,55 +223,58 @@ public class AdminUsuariosServlet extends HttpServlet {
         }
     }
     
-    private void aceptarCentro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void aceptarCentro(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-			Suscriptor suscriptor = suscriptorDAO.getSuscriptorById(id);
+            Suscriptor suscriptor = suscriptorDAO.getSuscriptorById(id);
 
-			if (suscriptor != null) {
-				suscriptor.setEstado("activo");
-				boolean actualizado = suscriptorDAO.updateSuscriptor(suscriptor);
-				CentroService c = new CentroService();
-				// Asignar cupones al responsable
-				int alumnos = 0;
-				try {
-					alumnos = c.getCentroByName(suscriptorDAO.getSuscriptorById(id).getUsername()).getNumAlumnos();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				for (int a = 0; a < alumnos; a++) {
-					Cupon cupon = new Cupon();
-					cupon.setIdSuscriptor(id);
-					cupon.setTipo("REGALO");
+            if (suscriptor != null) {
+                suscriptor.setEstado("activo");
+                boolean actualizado = suscriptorDAO.updateSuscriptor(suscriptor);
+                CentroService c = new CentroService();
+                
+                // Asignar cupones al responsable
+                int alumnos = 0;
+                try {
+                    alumnos = c.getCentroByName(suscriptorDAO.getSuscriptorById(id).getUsername()).getNumAlumnos();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                
+                for (int a = 0; a < alumnos; a++) {
+                    Cupon cupon = new Cupon();
+                    cupon.setIdSuscriptor(id);
+                    cupon.setTipo("REGALO");
 
-					Calendar calendar = Calendar.getInstance();
-					calendar.setTime(new Date(System.currentTimeMillis()));
-					calendar.add(Calendar.YEAR, 1);
-					Date fechaCaducidad = new Date(calendar.getTimeInMillis());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(new Date(System.currentTimeMillis()));
+                    calendar.add(Calendar.YEAR, 1);
+                    Date fechaCaducidad = new Date(calendar.getTimeInMillis());
 
-					cupon.setFechaCaducidad(fechaCaducidad);
-					cupon.setEstado("disponible");
+                    cupon.setFechaCaducidad(fechaCaducidad);
+                    cupon.setEstado("disponible");
 
-					CuponService cup = new CuponService();
-					cup.asignarCuponService(cupon);
-				}
+                    CuponService cup = new CuponService();
+                    cup.asignarCuponService(cupon);
+                }
 
-				if (actualizado) {
-					request.getSession().setAttribute("mensaje", "Centro aceptado correctamente.");
-				} else {
-					request.getSession().setAttribute("error", "Error al aceptar el centro.");
-				}
-			} else {
-				request.getSession().setAttribute("error", "Centro no encontrado.");
-			}
-		} catch (NumberFormatException e) {
-            request.getSession().setAttribute("error", "ID de centro invÃ¡lido.");
+                if (actualizado) {
+                    request.getSession().setAttribute("mensaje", "Centro aceptado correctamente.");
+                } else {
+                    request.getSession().setAttribute("error", "Error al aceptar el centro.");
+                }
+            } else {
+                request.getSession().setAttribute("error", "Centro no encontrado.");
+            }
+        } catch (NumberFormatException e) {
+            request.getSession().setAttribute("error", "ID de centro inválido.");
         }
         response.sendRedirect("AdminUsuarios?action=listarPendientes");
     }
     
-    private void rechazarCentro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void rechazarCentro(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             boolean eliminado = suscriptorDAO.deleteSuscriptor(id);
@@ -258,8 +285,51 @@ public class AdminUsuariosServlet extends HttpServlet {
                 request.getSession().setAttribute("error", "Error al rechazar el centro.");
             }
         } catch (NumberFormatException e) {
-            request.getSession().setAttribute("error", "ID de centro invÃ¡lido.");
+            request.getSession().setAttribute("error", "ID de centro inválido.");
         }
         response.sendRedirect("AdminUsuarios?action=listarPendientes");
+    }
+    
+    // NUEVAS FUNCIONALIDADES: Confirmar y rechazar bajas
+    private void confirmarBajaCentro(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            boolean eliminado = suscriptorDAO.deleteSuscriptor(id);
+            
+            if (eliminado) {
+                request.getSession().setAttribute("mensaje", "Baja de centro confirmada correctamente.");
+            } else {
+                request.getSession().setAttribute("error", "Error al confirmar la baja del centro.");
+            }
+        } catch (NumberFormatException e) {
+            request.getSession().setAttribute("error", "ID de centro inválido.");
+        }
+        response.sendRedirect("AdminUsuarios?action=listarSolicitudesBaja");
+    }
+    
+    private void rechazarBajaCentro(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Suscriptor suscriptor = suscriptorDAO.getSuscriptorById(id);
+            
+            if (suscriptor != null) {
+                // Volver el estado a "activo"
+                suscriptor.setEstado("activo");
+                boolean actualizado = suscriptorDAO.updateSuscriptor(suscriptor);
+                
+                if (actualizado) {
+                    request.getSession().setAttribute("mensaje", "Solicitud de baja rechazada. El centro sigue activo.");
+                } else {
+                    request.getSession().setAttribute("error", "Error al rechazar la solicitud de baja.");
+                }
+            } else {
+                request.getSession().setAttribute("error", "Centro no encontrado.");
+            }
+        } catch (NumberFormatException e) {
+            request.getSession().setAttribute("error", "ID de centro inválido.");
+        }
+        response.sendRedirect("AdminUsuarios?action=listarSolicitudesBaja");
     }
 }
