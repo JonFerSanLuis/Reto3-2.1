@@ -378,6 +378,7 @@ body {
   padding: 1rem;
   border-bottom: 1px solid #e1e8ed;
   vertical-align: middle;
+  margin-top: 1rem;
 }
 
 .table tbody tr:hover {

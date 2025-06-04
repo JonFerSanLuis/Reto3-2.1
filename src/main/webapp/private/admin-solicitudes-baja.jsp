@@ -34,7 +34,7 @@ if (cookies != null) {
     <link rel="stylesheet" href="css/pages/admin-solicitudes-baja.css">
 </head>
 <body>
-    <div class="dashboard-container">
+    <div class="dashboard-container">'
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
@@ -55,11 +55,11 @@ if (cookies != null) {
             
             <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="PerfilServlet"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="PerfilServlet"><i class="fas fa-tachometer-alt"></i> Perfil</a></li>
                     <li><a href="AdminUsuarios?action=listar"><i class="fas fa-users"></i> Gestionar Usuarios</a></li>
                     <li><a href="AdminUsuarios?action=listarPendientes"><i class="fas fa-user-plus"></i> Centros Pendientes</a></li>
                     <li><a href="AdminUsuarios?action=listarSolicitudesBaja" class="active"><i class="fas fa-user-minus"></i> Solicitudes de Baja</a></li>
-                    <li><a href="private/descargarJuego.jsp"><i class="fas fa-download"></i> Descargar Juego</a></li>
+                    <li><a href="finalizar-ranking.jsp"><i class="fas fa-flag-checkered"></i> Finalizar Ranking</a></li>                                            
                 </ul>
             </nav>
         </aside>
@@ -71,7 +71,7 @@ if (cookies != null) {
                 <div class="breadcrumb">
                     <a href="index.jsp">Inicio</a>
                     <span>/</span>
-                    <a href="PerfilServlet">Dashboard</a>
+                    <a href="PerfilServlet">Perfil</a>
                     <span>/</span>
                     <span>Solicitudes de Baja</span>
                 </div>

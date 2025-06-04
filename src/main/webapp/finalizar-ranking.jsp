@@ -18,7 +18,7 @@
     // Verificar si el usuario es administrador
     Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
     if (isAdmin == null || !isAdmin) {
-        response.sendRedirect("perfil.jsp");
+        response.sendRedirect("PerfilServlet");
         return;
     }
 %>
@@ -31,136 +31,140 @@
 <html lang="${idioma}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finalizar Ranking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Finalizar Ranking - Escape Room</title>
     <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- CSS -->
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/pages/admin-usuarios.css">
+    <link rel="stylesheet" href="css/pages/perfil.css">
+    <link rel="stylesheet" href="css/pages/finalizar-ranking.css">
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <a href="index.jsp"><img src="img/logo.png" alt="Logo"></a>
-        </div>
-        <nav class="nav-container">
-            <ul class="nav-links">
-                <li><a href="informacion.jsp"><fmt:message key="menu.informacion" /></a></li>
-                <li><a href="Ranking"><fmt:message key="menu.ranking" /></a></li>
-                <li><a href="comprarCupon.jsp"><fmt:message key="menu.comprarCupon" /></a></li>
-                <li><a href="AdminUsuarios">Administrar Usuarios</a></li>
-            </ul>
-        </nav>
-
-        <div class="right-section">
-            <div class="idiomas">
-                <img src="img/idiomas.png" alt="Idiomas">
-                <ul class="idioma-menu">
-                    <li><a href="CambiarIdioma?idioma=es"><fmt:message key="idioma.espanol" /></a></li>
-                    <li><a href="CambiarIdioma?idioma=en"><fmt:message key="idioma.ingles" /></a></li>
-                    <li><a href="CambiarIdioma?idioma=eu"><fmt:message key="idioma.euskera" /></a></li>
-                </ul>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.jsp" class="sidebar-logo">
+                	<div class="logo">
+                    <img src="img/BILBAOSKP.png" alt="Logo Educación Divertida" width="200" height="150">
+                    </div>
+                </a>
             </div>
-            <% if (username != null) { %>
-                <a href="PerfilServlet" class="btn">Perfil</a>
-            <% } else { %>
-                <a href="login.jsp" class="btn">Iniciar sesión</a>
-            <% } %>
-            <% if (username != null) { %>
-                <a href="private/descargarJuego.jsp" class="btn"><fmt:message key="menu.descargar" /></a>
-            <% } %>
-        </div>
-    </header>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                    <span class="user-name">${username}</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="PerfilServlet"><i class="fas fa-tachometer-alt"></i> Perfil</a></li>
+                    <li><a href="AdminUsuarios?action=listar"><i class="fas fa-users"></i> Gestionar Usuarios</a></li>
+                    <li><a href="AdminUsuarios?action=listarPendientes"><i class="fas fa-user-plus"></i> Centros Pendientes</a></li>
+                    <li><a href="AdminUsuarios?action=listarSolicitudesBaja"><i class="fas fa-user-minus"></i> Solicitudes de Baja</a></li>
+                    <li><a href="finalizar-ranking.jsp" class="active"><i class="fas fa-flag-checkered"></i> Finalizar Ranking</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-    <div class="main-content">
-        <h1 class="page-title">Finalizar Ranking Actual</h1>
-        
-        <div class="admin-container">
-            <section class="users-table-section">
-                <h2 class="users-table-title">Confirmación</h2>
-                <div style="margin: 20px 0; padding: 15px; background-color: #fff3cd; border-left: 4px solid #ffc107; color: #856404;">
-                    <p><strong>¡Atención!</strong> Esta acción no se puede deshacer. Asegúrate de que realmente deseas finalizar el ranking actual.</p>
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <!-- Header superior -->
+            <header class="top-header">
+                <div class="breadcrumb">
+                    <a href="index.jsp">Inicio</a>
+                    <span>/</span>
+                    <a href="PerfilServlet">Perfil</a>
+                    <span>/</span>
+                    <span>Finalizar Ranking</span>
                 </div>
                 
-                <div style="margin-bottom: 20px;">
-                    <p>Estás a punto de finalizar el ranking actual. Esta acción realizará lo siguiente:</p>
-                    <ul style="margin-left: 20px; margin-top: 10px;">
-                        <li>Guardará todos los datos actuales del ranking en un histórico</li>
-                        <li>Reiniciará el ranking actual, eliminando todas las puntuaciones</li>
-                    </ul>
-                </div>
-                
-                <div style="display: flex; justify-content: space-between; margin-top: 30px;">
-                    <a href="perfil.jsp" class="btn" style="background-color: #6c757d;">Cancelar</a>
-                    <form action="FinalizarRankingServlet" method="post">
-                        <button type="submit" class="btn" style="background-color: #dc3545;">Confirmar Finalización</button>
+                <div class="header-actions">
+                    <div class="language-selector">
+                        <i class="fas fa-globe"></i>
+                        <select onchange="cambiarIdioma(this.value)">
+                            <option value="es" ${idioma == 'es' ? 'selected' : ''}>Español</option>
+                            <option value="en" ${idioma == 'en' ? 'selected' : ''}>English</option>
+                            <option value="eu" ${idioma == 'eu' ? 'selected' : ''}>Euskera</option>
+                        </select>
+                    </div>
+                    <form action="CerrarSesionServlet" method="post" style="display: inline;">
+                        <button type="submit" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </button>
                     </form>
                 </div>
-            </section>
-        </div>
+            </header>
+
+            <!-- Área de contenido -->
+            <div class="content-area">
+                <h1 class="page-title">Finalizar Ranking Actual</h1>
+
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-exclamation-triangle"></i> Confirmación de Finalización
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="warning-alert">
+                            <div class="warning-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="warning-content">
+                                <h3>¡Atención!</h3>
+                                <p>Esta acción no se puede deshacer. Asegúrate de que realmente deseas finalizar el ranking actual.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h3>¿Qué sucederá al finalizar el ranking?</h3>
+                            <ul class="action-list">
+                                <li>
+                                    <i class="fas fa-archive"></i>
+                                    <span>Se guardará todos los datos actuales del ranking en un histórico</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-refresh"></i>
+                                    <span>Se reiniciará el ranking actual, eliminando todas las puntuaciones</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-users"></i>
+                                    <span>Los usuarios podrán comenzar a acumular puntos desde cero</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <a href="PerfilServlet" class="btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Cancelar
+                            </a>
+                            <form action="FinalizarRankingServlet" method="post" style="display: inline;">
+                                <button type="submit" class="btn-danger" onclick="return confirm('¿Estás completamente seguro de que deseas finalizar el ranking actual? Esta acción NO se puede deshacer.');">
+                                    <i class="fas fa-flag-checkered"></i> Confirmar Finalización
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                Copyright © 2025 <a href="#">Escape Room Educativo</a>. Todos los derechos reservados.
+                <span style="float: right;">Versión 1.0</span>
+            </footer>
+        </main>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <img src="img/logo.png" alt="Logo Educación Divertida">
-                </div>
-                <p class="footer-description"><fmt:message key="footer.descripcion" /></p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-
-            <div class="footer-section">
-                <h3 class="footer-title"><fmt:message key="footer.enlacesRapidos" /></h3>
-                <ul class="footer-links">
-					<li><a href="informacion.jsp"><fmt:message key="footer.informacion" /></a></li>
-                    <li><a href="Ranking"><fmt:message key="footer.ranking" /></a></li>
-                    <li><a href="comprarCupon.jsp"><fmt:message key="footer.comprarCupon" /></a></li>
-                    <li><a href="PerfilServlet"><fmt:message key="footer.perfil" /></a></li>
-                    <li><a href="private/descargarJuego.jsp"><fmt:message key="footer.descargar" /></a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3 class="footer-title"><fmt:message key="footer.contacto" /></h3>
-                <div class="footer-contact">
-                    <p><i class="fas fa-map-marker-alt"></i> <fmt:message key="footer.direccion" /></p>
-                    <p><i class="fas fa-phone"></i> <fmt:message key="footer.telefono" /></p>
-                    <p><i class="fas fa-envelope"></i> <fmt:message key="footer.email" /></p>
-                    <p><i class="fas fa-clock"></i> <fmt:message key="footer.horario" /></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-container">
-            <div class="copyright">
-                <fmt:message key="footer.copyright" />
-            </div>
-        </div>
-    </footer>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const idiomas = document.querySelector('.idiomas');
-            document.addEventListener('click', function(e) {
-                if (idiomas.contains(e.target)) {
-                    idiomas.classList.toggle('activo');
-                } else {
-                    idiomas.classList.remove('activo');
-                }
-            });
-        });
+        function cambiarIdioma(idioma) {
+            window.location.href = 'CambiarIdioma?idioma=' + idioma + '&redirect=finalizar-ranking.jsp';
+        }
     </script>
 </body>
 </html>
