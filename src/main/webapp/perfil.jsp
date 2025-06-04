@@ -38,323 +38,337 @@ if (cookies != null) {
     <div class="dashboard-container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-header">
-                <a href="index.jsp" class="sidebar-logo">
-                	<div class="logo">
-                    <img src="img/BILBAOSKP.png" alt="Logo Educación Divertida" width="200" height="150">
-                    </div>
-                </a>
+    <div class="sidebar-header">
+        <a href="index.jsp" class="sidebar-logo">
+            <div class="logo">
+                <img src="img/BILBAOSKP.png" alt="${sidebar.logoAlt}" width="200" height="150">
             </div>
-            
-            <div class="user-info">
-                <div class="user-avatar">
-                    <i class="fas fa-user"></i>
-                    <span class="user-name">${username}</span>
-                </div>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <ul>
-                    <c:if test="${sessionScope.isAdmin}">
-                        <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> Perfil</a></li>
-                        <li><a href="AdminUsuarios?action=listar"><i class="fas fa-users"></i> Gestionar Usuarios</a></li>
-                        <li><a href="AdminUsuarios?action=listarPendientes"><i class="fas fa-user-plus"></i> Centros Pendientes</a></li>
-                        <li><a href="AdminUsuarios?action=listarSolicitudesBaja"><i class="fas fa-user-minus"></i> Solicitudes de Baja</a></li>
-                        <li><a href="finalizar-ranking.jsp"><i class="fas fa-flag-checkered"></i> Finalizar Ranking</a></li>                        
-                    </c:if>
-                    <c:if test="${!sessionScope.isAdmin}">
-                        <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> Perfil</a></li>
-                        <li><a href="Ranking"><i class="fas fa-trophy"></i> Ranking</a></li>
-                        <li><a href="comprarCupon.jsp"><i class="fas fa-shopping-cart"></i> Comprar Cupones</a></li>
-                        <li><a href="CompraServlet"><i class="fas fa-eye"></i>Ver Compras</a></li>
-                        <li><a href="organizarPartida.jsp"><i class="fas fa-calendar-plus"></i>Organizar Partida</a></li>                        
-                        <li><a href="valorar-experiencia.jsp"><i class="fas fa-star"></i> Valorar Experiencia</a></li>
-						<li><a href="private/descargarJuego.jsp"><i class="fas fa-download"></i> Descargar Juego</a></li>
-                        
-                    </c:if>
-                </ul>
-            </nav>
-        </aside>
+        </a>
+    </div>
+
+    <div class="user-info">
+        <div class="user-avatar">
+            <i class="fas fa-user"></i>
+            <span class="user-name">${username}</span>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <ul>
+            <c:if test="${sessionScope.isAdmin}">
+                <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> <fmt:message key="sidebar.perfil"/></a></li>
+                <li><a href="AdminUsuarios?action=listar"><i class="fas fa-users"></i> <fmt:message key="sidebar.gestionarUsuarios"/></a></li>
+                <li><a href="AdminUsuarios?action=listarPendientes"><i class="fas fa-user-plus"></i> <fmt:message key="sidebar.centrosPendientes"/></a></li>
+                <li><a href="AdminUsuarios?action=listarSolicitudesBaja"><i class="fas fa-user-minus"></i> <fmt:message key="sidebar.solicitudesBaja"/></a></li>
+                <li><a href="finalizar-ranking.jsp"><i class="fas fa-flag-checkered"></i> <fmt:message key="sidebar.finalizarRanking"/></a></li>                        
+            </c:if>
+            <c:if test="${!sessionScope.isAdmin}">
+                <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> <fmt:message key="sidebar.perfil"/></a></li>
+                <li><a href="Ranking"><i class="fas fa-trophy"></i> <fmt:message key="sidebar.ranking"/></a></li>
+                <li><a href="comprarCupon.jsp"><i class="fas fa-shopping-cart"></i> <fmt:message key="sidebar.comprarCupones"/></a></li>
+                <li><a href="CompraServlet"><i class="fas fa-eye"></i> <fmt:message key="sidebar.verCompras"/></a></li>
+                <li><a href="organizarPartida.jsp"><i class="fas fa-calendar-plus"></i> <fmt:message key="sidebar.organizarPartida"/></a></li>                        
+                <li><a href="valorar-experiencia.jsp"><i class="fas fa-star"></i> <fmt:message key="sidebar.valorarExperiencia"/></a></li>
+                <li><a href="private/descargarJuego.jsp"><i class="fas fa-download"></i> <fmt:message key="sidebar.descargarJuego"/></a></li>
+            </c:if>
+        </ul>
+    </nav>
+</aside>
 
         <!-- Contenido principal -->
         <main class="main-content">
             <!-- Header superior -->
             <header class="top-header">
-                <div class="breadcrumb">
-                    <a href="index.jsp">Inicio</a>
-                    <span>/</span>
-                    <span>Perfil</span>
-                </div>
-                
-                <div class="header-actions">
-                    <div class="language-selector">
-                        <i class="fas fa-globe"></i>
-                        <select onchange="cambiarIdioma(this.value)">
-                            <option value="es" ${idioma == 'es' ? 'selected' : ''}>Español</option>
-                            <option value="en" ${idioma == 'en' ? 'selected' : ''}>English</option>
-                            <option value="eu" ${idioma == 'eu' ? 'selected' : ''}>Euskera</option>
-                        </select>
-                    </div>
-                    <form action="CerrarSesionServlet" method="post" style="display: inline;">
-                        <button type="submit" class="btn-logout">
-                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                        </button>
-                    </form>
-                </div>
-            </header>
+    <div class="breadcrumb">
+        <a href="index.jsp"><fmt:message key="header.inicio"/></a>
+        <span>/</span>
+        <span><fmt:message key="header.perfil"/></span>
+    </div>
+
+    <div class="header-actions">
+        <div class="language-selector">
+            <i class="fas fa-globe"></i>
+            <select onchange="cambiarIdioma(this.value)">
+                <option value="es" ${idioma == 'es' ? 'selected' : ''}><fmt:message key="header.idioma.es"/></option>
+                <option value="en" ${idioma == 'en' ? 'selected' : ''}><fmt:message key="header.idioma.en"/></option>
+                <option value="eu" ${idioma == 'eu' ? 'selected' : ''}><fmt:message key="header.idioma.eu"/></option>
+            </select>
+        </div>
+        <form action="CerrarSesionServlet" method="post" style="display: inline;">
+            <button type="submit" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i> <fmt:message key="header.cerrarSesion"/>
+            </button>
+        </form>
+    </div>
+</header>
+
 
             <!-- Área de contenido -->
             <div class="content-area">
-                <h1 class="page-title">Dashboard</h1>
+               <h1 class="page-title"><fmt:message key="page.dashboard"/></h1>
+
 
                 <!-- Mensajes de éxito o error -->
                 <c:if test="${not empty sessionScope.mensaje}">
-                    <div class="alert alert-success">
-                        <i class="fas fa-check-circle"></i> ${sessionScope.mensaje}
-                        <c:remove var="mensaje" scope="session" />
-                    </div>
-                </c:if>
-                <c:if test="${not empty sessionScope.error}">
-                    <div class="alert alert-danger">
-                        <i class="fas fa-exclamation-triangle"></i> ${sessionScope.error}
-                        <c:remove var="error" scope="session" />
-                    </div>
-                </c:if>
+    <div class="alert alert-success">
+        <i class="fas fa-check-circle"></i> <fmt:message key="alert.success"/> ${sessionScope.mensaje}
+        <c:remove var="mensaje" scope="session" />
+    </div>
+</c:if>
+
+<c:if test="${not empty sessionScope.error}">
+    <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle"></i> <fmt:message key="alert.error"/> ${sessionScope.error}
+        <c:remove var="error" scope="session" />
+    </div>
+</c:if>
+
 
                 <!-- Admin Dashboard -->
                 <c:if test="${sessionScope.isAdmin}">
                     <div class="stats-grid">
                         <div class="stat-card primary">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-number">${usuariosActivos}</div>
-                                    <div class="stat-label">Usuarios Activos</div>
-                                </div>
-                                <div class="stat-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                            </div>
-                            <a href="AdminUsuarios?action=listar" class="stat-more">
-                                Más información <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                        
-                        <div class="stat-card warning">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-number">${solicitudesBaja}</div>
-                                    <div class="stat-label">Solicitudes de Baja</div>
-                                </div>
-                                <div class="stat-icon">
-                                    <i class="fas fa-user-times"></i>
-                                </div>
-                            </div>
-                            <a href="AdminUsuarios?action=listarSolicitudesBaja" class="stat-more">
-                                Más información <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
+    <div class="stat-header">
+        <div>
+            <div class="stat-number">${usuariosActivos}</div>
+            <div class="stat-label"><fmt:message key="stats.usuariosActivos"/></div>
+        </div>
+        <div class="stat-icon">
+            <i class="fas fa-users"></i>
+        </div>
+    </div>
+    <a href="AdminUsuarios?action=listar" class="stat-more">
+        <fmt:message key="stats.masInformacion"/> <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+
+<div class="stat-card warning">
+    <div class="stat-header">
+        <div>
+            <div class="stat-number">${solicitudesBaja}</div>
+            <div class="stat-label"><fmt:message key="stats.solicitudesBaja"/></div>
+        </div>
+        <div class="stat-icon">
+            <i class="fas fa-user-times"></i>
+        </div>
+    </div>
+    <a href="AdminUsuarios?action=listarSolicitudesBaja" class="stat-more">
+        <fmt:message key="stats.masInformacion"/> <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+
                         
                         <div class="stat-card success">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-number">${centrosPendientes}</div>
-                                    <div class="stat-label">Centros Pendientes</div>
-                                </div>
-                                <div class="stat-icon">
-                                    <i class="fas fa-school"></i>
-                                </div>
-                            </div>
-                            <a href="AdminUsuarios?action=listarPendientes" class="stat-more">
-                                Más información <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                        
-                        <div class="stat-card danger">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-number">${totalCupones}</div>
-                                    <div class="stat-label">Cupones Totales</div>
-                                </div>
-                                <div class="stat-icon">
-                                    <i class="fas fa-ticket-alt"></i>
-                                </div>
-                            </div>
-                            <a href="ListaCuponesServlet" class="stat-more">
-                                Más información <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
+    <div class="stat-header">
+        <div>
+            <div class="stat-number">${centrosPendientes}</div>
+            <div class="stat-label"><fmt:message key="stats.centrosPendientes"/></div>
+        </div>
+        <div class="stat-icon">
+            <i class="fas fa-school"></i>
+        </div>
+    </div>
+    <a href="AdminUsuarios?action=listarPendientes" class="stat-more">
+        <fmt:message key="stats.masInformacion"/> <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+
+<div class="stat-card danger">
+    <div class="stat-header">
+        <div>
+            <div class="stat-number">${totalCupones}</div>
+            <div class="stat-label"><fmt:message key="stats.cuponesTotales"/></div>
+        </div>
+        <div class="stat-icon">
+            <i class="fas fa-ticket-alt"></i>
+        </div>
+    </div>
+    <a href="ListaCuponesServlet" class="stat-more">
+        <fmt:message key="stats.masInformacion"/> <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+
                     </div>
                 </c:if>
 
                 <!-- User Dashboard -->
                 <c:if test="${!sessionScope.isAdmin}">
                     <div class="stats-grid">
-                        <div class="stat-card primary">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-number">${totalCuponesUsuario}</div>
-                                    <div class="stat-label">Cupones Totales</div>
-                                </div>
-                                <div class="stat-icon">
-                                    <i class="fas fa-ticket-alt"></i>
-                                </div>
-                            </div>
-                            <a href="#cupones" class="stat-more">
-                                Ver cupones <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                        
-                        <div class="stat-card success">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-number">${cuponesDisponibles}</div>
-                                    <div class="stat-label">Cupones Disponibles</div>
-                                </div>
-                                <div class="stat-icon">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                            </div>
-                            <a href="organizarPartida.jsp" class="stat-more">
-                                Usar cupones <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
+                       <div class="stat-card primary">
+    <div class="stat-header">
+        <div>
+            <div class="stat-number">${totalCuponesUsuario}</div>
+            <div class="stat-label"><fmt:message key="stats.cuponesTotales"/></div>
+        </div>
+        <div class="stat-icon">
+            <i class="fas fa-ticket-alt"></i>
+        </div>
+    </div>
+    <a href="#cupones" class="stat-more">
+        <fmt:message key="stats.verCupones"/> <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+
+<div class="stat-card success">
+    <div class="stat-header">
+        <div>
+            <div class="stat-number">${cuponesDisponibles}</div>
+            <div class="stat-label"><fmt:message key="stats.cuponesDisponibles"/></div>
+        </div>
+        <div class="stat-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+    </div>
+    <a href="organizarPartida.jsp" class="stat-more">
+        <fmt:message key="stats.usarCupones"/> <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+
                         
                         <div class="stat-card warning">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-number">${partidasJugadas}</div>
-                                    <div class="stat-label">Partidas Jugadas</div>
-                                </div>
-                                <div class="stat-icon">
-                                    <i class="fas fa-gamepad"></i>
-                                </div>
-                            </div>
-                            <a href="Ranking" class="stat-more">
-                                Ver ranking <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                        
-                        <div class="stat-card danger">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-number">${puntosTotales}</div>
-                                    <div class="stat-label">Puntos Totales</div>
-                                </div>
-                                <div class="stat-icon">
-                                    <i class="fas fa-trophy"></i>
-                                </div>
-                            </div>
-                            <a href="Ranking" class="stat-more">
-                                Ver ranking <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
+    <div class="stat-header">
+        <div>
+            <div class="stat-number">${partidasJugadas}</div>
+            <div class="stat-label"><fmt:message key="stats.partidasJugadas"/></div>
+        </div>
+        <div class="stat-icon">
+            <i class="fas fa-gamepad"></i>
+        </div>
+    </div>
+    <a href="Ranking" class="stat-more">
+        <fmt:message key="stats.verRanking"/> <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+
+<div class="stat-card danger">
+    <div class="stat-header">
+        <div>
+            <div class="stat-number">${puntosTotales}</div>
+            <div class="stat-label"><fmt:message key="stats.puntosTotales"/></div>
+        </div>
+        <div class="stat-icon">
+            <i class="fas fa-trophy"></i>
+        </div>
+    </div>
+    <a href="Ranking" class="stat-more">
+        <fmt:message key="stats.verRanking"/> <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+
                     </div>
                     
                     <!-- Cupones del usuario -->
                     <div class="content-card" id="cupones">
-                        <div class="card-header">
-                            <h2 class="card-title">
-                                <i class="fas fa-ticket-alt"></i> Mis Cupones
-                                <c:if test="${totalCupones > 0}">
-                                    <span style="font-size: 0.8rem; font-weight: normal; color: #7f8c8d;">
-                                        (${totalCupones} cupones en total)
-                                    </span>
-                                </c:if>
-                            </h2>
-                        </div>
+                       <div class="card-header">
+    <h2 class="card-title">
+        <i class="fas fa-ticket-alt"></i> <fmt:message key="cupones.misCupones"/>
+        <c:if test="${totalCupones > 0}">
+            <span style="font-size: 0.8rem; font-weight: normal; color: #7f8c8d;">
+                (${totalCupones} <fmt:message key="cupones.enTotal"/>)
+            </span>
+        </c:if>
+    </h2>
+</div>
+
                         <div class="card-body">
                             <c:choose>
                                 <c:when test="${empty listaCupones}">
-                                    <div class="empty-state">
-                                        <i class="fas fa-ticket-alt"></i>
-                                        <h3>No tienes cupones disponibles</h3>
-                                        <p>Compra cupones para poder jugar en nuestros escape rooms.</p>
-                                    </div>
-                                </c:when>
+    <div class="empty-state">
+        <i class="fas fa-ticket-alt"></i>
+        <h3><fmt:message key="cupones.noDisponibles"/></h3>
+        <p><fmt:message key="cupones.comprarParaJugar"/></p>
+    </div>
+</c:when>
+
                                 <c:otherwise>
                                     <!-- Controles de paginación superior -->
                                     <c:if test="${totalPages > 1}">
-                                        <div class="pagination-controls" style="margin-bottom: 1rem;">
-                                            <div class="pagination-info">
-                                                Mostrando ${(currentPage - 1) * pageSize + 1} - ${(currentPage - 1) * pageSize + listaCupones.size()} de ${totalCupones} cupones
-                                            </div>
-                                            <div class="pagination-size">
-                                                <label for="pageSize">Mostrar:</label>
-                                                <select id="pageSize" onchange="changePageSize(this.value)">
-                                                    <option value="10" ${pageSize == 10 ? 'selected' : ''}>10</option>
-                                                    <option value="20" ${pageSize == 20 ? 'selected' : ''}>20</option>
-                                                    <option value="50" ${pageSize == 50 ? 'selected' : ''}>50</option>
-                                                </select>
-                                                por página
-                                            </div>
-                                        </div>
-                                    </c:if>
+    <div class="pagination-controls" style="margin-bottom: 1rem;">
+        <div class="pagination-info">
+            <fmt:message key="paginacion.mostrando"/>
+            ${(currentPage - 1) * pageSize + 1} - ${(currentPage - 1) * pageSize + listaCupones.size()} 
+            <fmt:message key="paginacion.de"/> ${totalCupones} <fmt:message key="paginacion.cupones"/>
+        </div>
+        <div class="pagination-size">
+            <label for="pageSize"><fmt:message key="paginacion.mostrar"/>:</label>
+            <select id="pageSize" onchange="changePageSize(this.value)">
+                <option value="10" ${pageSize == 10 ? 'selected' : ''}>10</option>
+                <option value="20" ${pageSize == 20 ? 'selected' : ''}>20</option>
+                <option value="50" ${pageSize == 50 ? 'selected' : ''}>50</option>
+            </select>
+            <fmt:message key="paginacion.porPagina"/>
+        </div>
+    </div>
+</c:if>
 
-                                    <div class="table-container">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th><i class="fas fa-hashtag"></i> ID</th>
-                                                    <th><i class="fas fa-tag"></i> Tipo</th>
-                                                    <th><i class="fas fa-circle"></i> Estado</th>
-                                                    <th><i class="fas fa-calendar"></i> Fecha Caducidad</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <c:forEach var="cupon" items="${listaCupones}">
-                                                    <tr>
-                                                        <td><strong>#${cupon.idCupon}</strong></td>
-                                                        <td>${cupon.tipo}</td>
-                                                        <td>
-                                                            <c:choose>
-                                                                <c:when test="${cupon.estado eq 'disponible'}">
-                                                                    <span class="badge badge-success">Disponible</span>
-                                                                </c:when>
-                                                                <c:when test="${cupon.estado eq 'usado'}">
-                                                                    <span class="badge badge-secondary">Usado</span>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <span class="badge badge-info">${cupon.estado}</span>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </td>
-                                                        <td>
-                                                            <fmt:formatDate value="${cupon.fechaCaducidad}" pattern="dd/MM/yyyy" />
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
+
+                                   <div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th><i class="fas fa-hashtag"></i> <fmt:message key="tabla.id"/></th>
+                <th><i class="fas fa-tag"></i> <fmt:message key="tabla.tipo"/></th>
+                <th><i class="fas fa-circle"></i> <fmt:message key="tabla.estado"/></th>
+                <th><i class="fas fa-calendar"></i> <fmt:message key="tabla.fechaCaducidad"/></th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="cupon" items="${listaCupones}">
+                <tr>
+                    <td><strong>#${cupon.idCupon}</strong></td>
+                    <td>${cupon.tipo}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${cupon.estado eq 'disponible'}">
+                                <span class="badge badge-success"><fmt:message key="tabla.disponible"/></span>
+                            </c:when>
+                            <c:when test="${cupon.estado eq 'usado'}">
+                                <span class="badge badge-secondary"><fmt:message key="tabla.usado"/></span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="badge badge-info">${cupon.estado}</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <fmt:formatDate value="${cupon.fechaCaducidad}" pattern="dd/MM/yyyy" />
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
+
 
                                     <!-- Controles de paginación inferior -->
-                                    <c:if test="${totalPages > 1}">
-                                        <div class="pagination-controls" style="margin-top: 1rem;">
-                                            <div class="pagination-buttons">
-                                                <c:if test="${hasPreviousPage}">
-                                                    <a href="PerfilServlet?page=1&size=${pageSize}" class="pagination-btn">
-                                                        <i class="fas fa-angle-double-left"></i> Primera
-                                                    </a>
-                                                    <a href="PerfilServlet?page=${currentPage - 1}&size=${pageSize}" class="pagination-btn">
-                                                        <i class="fas fa-angle-left"></i> Anterior
-                                                    </a>
-                                                </c:if>
-                                                
-                                                <span class="pagination-current">
-                                                    Página ${currentPage} de ${totalPages}
-                                                </span>
-                                                
-                                                <c:if test="${hasNextPage}">
-                                                    <a href="PerfilServlet?page=${currentPage + 1}&size=${pageSize}" class="pagination-btn">
-                                                        Siguiente <i class="fas fa-angle-right"></i>
-                                                    </a>
-                                                    <a href="PerfilServlet?page=${totalPages}&size=${pageSize}" class="pagination-btn">
-                                                        Última <i class="fas fa-angle-double-right"></i>
-                                                    </a>
-                                                </c:if>
-                                            </div>
-                                        </div>
-                                    </c:if>
+                                   <c:if test="${totalPages > 1}">
+    <div class="pagination-controls" style="margin-top: 1rem;">
+        <div class="pagination-buttons">
+            <c:if test="${hasPreviousPage}">
+                <a href="PerfilServlet?page=1&size=${pageSize}" class="pagination-btn">
+                    <i class="fas fa-angle-double-left"></i> <fmt:message key="paginacion.primera"/>
+                </a>
+                <a href="PerfilServlet?page=${currentPage - 1}&size=${pageSize}" class="pagination-btn">
+                    <i class="fas fa-angle-left"></i> <fmt:message key="paginacion.anterior"/>
+                </a>
+            </c:if>
+
+            <span class="pagination-current">
+                <fmt:message key="paginacion.pagina"/> ${currentPage} <fmt:message key="paginacion.de"/> ${totalPages}
+            </span>
+
+            <c:if test="${hasNextPage}">
+                <a href="PerfilServlet?page=${currentPage + 1}&size=${pageSize}" class="pagination-btn">
+                    <fmt:message key="paginacion.siguiente"/> <i class="fas fa-angle-right"></i>
+                </a>
+                <a href="PerfilServlet?page=${totalPages}&size=${pageSize}" class="pagination-btn">
+                    <fmt:message key="paginacion.ultima"/> <i class="fas fa-angle-double-right"></i>
+                </a>
+            </c:if>
+        </div>
+    </div>
+</c:if>
+
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -362,31 +376,36 @@ if (cookies != null) {
                     
                     <!-- Opciones de cuenta -->
                     <div class="content-card">
-                        <div class="card-header">
-                            <h2 class="card-title">
-                                <i class="fas fa-cog"></i> Opciones de Cuenta
-                            </h2>
-                        </div>
-                        <div class="card-body">
-                            <p style="margin-bottom: 1.5rem; color: #7f8c8d;">
-                                <strong>Estado de tu cuenta:</strong> 
-                                <span class="badge badge-success">${estadoSuscripcion}</span>
-                            </p>
-                            <form action="EliminarSuscripcionServlet" method="post" onsubmit="return confirm('¿Estás seguro de que deseas darte de baja? Esta acción no se puede deshacer.');">
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fas fa-user-times"></i> Darme de Baja
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fas fa-cog"></i> <fmt:message key="account.options"/>
+        </h2>
+    </div>
+    <div class="card-body">
+        <p style="margin-bottom: 1.5rem; color: #7f8c8d;">
+            <strong><fmt:message key="account.status"/></strong> 
+            <span class="badge badge-success">${estadoSuscripcion}</span>
+        </p>
+        <form action="EliminarSuscripcionServlet" method="post" 
+              onsubmit="return confirm('<fmt:message key="account.unsubscribe.confirm"/>');">
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-user-times"></i> <fmt:message key="account.unsubscribe"/>
+            </button>
+        </form>
+    </div>
+</div>
+
                 </c:if>
             </div>
 
             <!-- Footer -->
             <footer class="footer">
-                Copyright © 2025 <a href="#">Escape Room Educativo</a>. Todos los derechos reservados.
-                <span style="float: right;">Versión 1.0</span>
-            </footer>
+    <fmt:message key="footer.copyright"/>
+    <a href="#">Escape Room Educativo</a>. 
+    <fmt:message key="footer.derechos"/>
+    <span style="float: right;"> <fmt:message key="footer.version"/> </span>
+</footer>
+
         </main>
     </div>
 
