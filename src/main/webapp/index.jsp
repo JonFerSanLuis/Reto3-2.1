@@ -95,7 +95,7 @@
            <div class="slide"><img src="img/casa2.png" alt="Imagen 3"></div>
        </div>
         <div class="overlay-content">
-            <img src="img/BILBAOSKP.png" alt="Logo Educación Divertida" width="500" height="150">
+            <h1 class="Titulo_parrafo"><fmt:message key="index.titulo" /></h1>
             <p><fmt:message key="index.descripcion" /></p>
            <div class="boton-container">
     <a href="informacion.jsp" class="btn-custom"><fmt:message key="index.sobreNosotros" /></a>
@@ -125,6 +125,7 @@
                 </div>
             </div>
 
+            <!-- El resto del footer se mantiene igual -->
             <div class="footer-section">
                 <h3 class="footer-title"><fmt:message key="footer.enlacesRapidos" /></h3>
                 <ul class="footer-links">
@@ -153,7 +154,8 @@
             </div>
         </div>
     </footer>
-	<script>
+
+
         document.addEventListener('DOMContentLoaded', function() {
             const idiomas = document.querySelector('.idiomas');
             document.addEventListener('click', function(e) {
@@ -164,7 +166,7 @@
                 }
             });
         });
-        
+        <script>
         document.addEventListener("DOMContentLoaded", function () {
           const header = document.querySelector(".header");
           if (header) {

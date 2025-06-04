@@ -41,7 +41,7 @@
 <body>
     <header class="header">
         <div class="logo">
-            <a href="../index.jsp"><img src="../img/logo.png" alt="Logo"></a>
+            <a href="../index.jsp"><img src="../img/BILBAOSKP.png" alt="Logo"></a>
         </div>
 
         <nav class="nav-container">
@@ -224,7 +224,8 @@
         <div class="footer-container">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="img/logo.png" alt="Logo Educación Divertida">
+                    <img src="../img/BilbaoLogo.png" alt="Logo Educación Divertida">
+                    <img alt="logo webcrafters" src="../img/logo.png">
                 </div>
                 <p class="footer-description"><fmt:message key="footer.descripcion" /></p>
                 <div class="social-links">

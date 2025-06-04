@@ -12,6 +12,11 @@ body {
   line-height: 1.6;
 }
 
+.logo img {
+  height: 60px;
+  width: 210px; 
+}
+
 /* Layout principal */
 .dashboard-container {
   display: flex;
