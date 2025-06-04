@@ -31,7 +31,7 @@ if (cookies != null) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="css/pages/perfil.css">
-    <link rel="stylesheet" href="css/admin-pending-centers.css">
+    <link rel="stylesheet" href="css/pages/admin-pending-centers.css">
 </head>
 <body>
     <div class="dashboard-container">
@@ -48,7 +48,7 @@ if (cookies != null) {
             <div class="user-info">
                 <div class="user-avatar">
                     <i class="fas fa-user"></i>
-                    <span class="user-name">${username}</span>
+                    <span class="user-name2">${username}</span>
                 </div>
             </div>
             
