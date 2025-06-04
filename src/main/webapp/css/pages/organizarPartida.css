@@ -1,61 +1,8 @@
-/* Estilos específicos para valorar experiencia */
-
-.rating-stars {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
-  gap: 15px;
-  margin: 15px 0;
-  padding: 10px;
-}
-
-.rating-stars input[type="radio"] {
-  display: none;
-}
-
-.rating-stars label.star {
-  font-size: 60px !important;
-  color: #ddd !important;
-  cursor: pointer;
-  transition: all 0.3s;
-  user-select: none;
-  line-height: 1 !important;
-  width: auto !important;
-  height: auto !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  background: none !important;
-  display: inline-block !important;
-}
-
-.rating-stars label.star:hover,
-.rating-stars label.star:hover ~ label.star,
-.rating-stars input[type="radio"]:checked ~ label.star {
-  color: #e67e22 !important;
-  transform: scale(1.1) !important;
-}
-
-.rating-text {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.rating-description {
-  color: #666;
-  font-size: 14px;
-  font-style: italic;
-}
+/* Estilos específicos para organizar partida */
 
 .form-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-.aspects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
@@ -86,6 +33,7 @@
   font-size: 16px;
   transition: all 0.3s;
   font-family: inherit;
+  background-color: white;
 }
 
 .form-control:focus {
@@ -94,17 +42,12 @@
   box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.2);
 }
 
-textarea.form-control {
-  min-height: 120px;
-  resize: vertical;
-}
-
 .form-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  margin-top: 20px;
+  margin-top: 30px;
   padding-top: 20px;
   border-top: 1px solid #eee;
 }
@@ -157,18 +100,8 @@ textarea.form-control {
   color: white;
 }
 
-.section-description {
-  color: #7f8c8d;
-  font-size: 16px;
-  margin: 0;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
-  .aspects-grid {
-    grid-template-columns: 1fr;
-  }
-
   .form-actions {
     flex-direction: column;
     gap: 15px;
@@ -177,10 +110,6 @@ textarea.form-control {
   .form-actions .btn {
     width: 100%;
     justify-content: center;
-  }
-
-  .rating-stars label.star {
-    font-size: 45px !important;
   }
 }
 

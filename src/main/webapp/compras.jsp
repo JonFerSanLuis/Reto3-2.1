@@ -40,7 +40,7 @@
 <body>
 	<header class="header">
 		<div class="logo">
-			<a href="index.jsp"><img src="img/logo.png" alt="Logo"></a>
+			<a href="index.jsp"><img src="img/BILBAOSKP.png" alt="Logo"></a>
 		</div>
 		<nav class="nav-container">
 			<ul class="nav-links">
@@ -151,7 +151,8 @@
 		<div class="footer-container">
 			<div class="footer-section">
 				<div class="footer-logo">
-					<img src="img/logo.png" alt="Logo Educación Divertida">
+					 <img src="img/BilbaoLogo.png" alt="Logo Educación Divertida">
+                    <img alt="logo webcrafters" src="img/logo.png">
 				</div>
 				<p class="footer-description">
 					<fmt:message key="footer.descripcion" />
@@ -169,12 +170,11 @@
 					<fmt:message key="footer.enlacesRapidos" />
 				</h3>
 				<ul class="footer-links">
-					<li><a href="#"><fmt:message key="footer.sobreNosotros" /></a></li>
-					<li><a href="#"><fmt:message key="footer.nuestrosCursos" /></a></li>
-					<li><a href="#"><fmt:message key="footer.testimonios" /></a></li>
-					<li><a href="#"><fmt:message key="footer.blogEducativo" /></a></li>
-					<li><a href="#"><fmt:message
-								key="footer.preguntasFrecuentes" /></a></li>
+					<li><a href="informacion.jsp"><fmt:message key="footer.informacion" /></a></li>
+                    <li><a href="Ranking"><fmt:message key="footer.ranking" /></a></li>
+                    <li><a href="ComprarCupon.jsp"><fmt:message key="footer.comprarCupon" /></a></li>
+                    <li><a href="PerfilServlet"><fmt:message key="footer.perfil" /></a></li>
+                    <li><a href="descargarJuego.jsp"><fmt:message key="footer.descargar" /></a></li>
 				</ul>
 			</div>
 

@@ -1,4 +1,4 @@
-/* Estilos específicos para centros pendientes */
+/* Estilos específicos para solicitudes de baja */
 
 .section-description {
   color: #7f8c8d;
@@ -125,7 +125,8 @@
   color: #f39c12;
 }
 
-.close-modal-rechazar-centro {
+.close-modal-confirmar-baja,
+.close-modal-rechazar-baja {
   font-size: 24px;
   cursor: pointer;
   color: #999;
@@ -140,7 +141,8 @@
   justify-content: center;
 }
 
-.close-modal-rechazar-centro:hover {
+.close-modal-confirmar-baja:hover,
+.close-modal-rechazar-baja:hover {
   color: #333;
 }
 
@@ -196,6 +198,13 @@
 .btn-danger:hover {
   background-color: #c0392b;
   transform: translateY(-1px);
+}
+
+/* Estilos específicos para el modal de rechazar baja */
+.warning-note[style*="background-color: #d1ecf1"] {
+  background-color: #d1ecf1 !important;
+  border-color: #bee5eb !important;
+  color: #0c5460 !important;
 }
 
 /* Responsive */
