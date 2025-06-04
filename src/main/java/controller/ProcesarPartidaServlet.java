@@ -99,7 +99,9 @@ public class ProcesarPartidaServlet extends HttpServlet {
     			}
     		
     		
-
+    		String codigo = generarCodigo();
+    		// Redirigir al perfil con un mensaje de éxito
+            request.getSession().setAttribute("mensaje", "El código de la partida es: " + codigo);
     		response.sendRedirect("PerfilServlet");
     	}
     	
