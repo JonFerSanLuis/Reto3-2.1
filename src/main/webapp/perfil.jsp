@@ -56,18 +56,18 @@ if (cookies != null) {
             <nav class="sidebar-nav">
                 <ul>
                     <c:if test="${sessionScope.isAdmin}">
-                        <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> Perfil</a></li>
                         <li><a href="AdminUsuarios?action=listar"><i class="fas fa-users"></i> Gestionar Usuarios</a></li>
                         <li><a href="AdminUsuarios?action=listarPendientes"><i class="fas fa-user-plus"></i> Centros Pendientes</a></li>
                         <li><a href="AdminUsuarios?action=listarSolicitudesBaja"><i class="fas fa-user-minus"></i> Solicitudes de Baja</a></li>
                         <li><a href="finalizar-ranking.jsp"><i class="fas fa-trophy"></i> Finalizar Ranking</a></li>                        
                     </c:if>
                     <c:if test="${!sessionScope.isAdmin}">
-                        <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="PerfilServlet" class="active"><i class="fas fa-tachometer-alt"></i> Perfil</a></li>
                         <li><a href="Ranking"><i class="fas fa-trophy"></i> Ranking</a></li>
                         <li><a href="comprarCupon.jsp"><i class="fas fa-shopping-cart"></i> Comprar Cupones</a></li>
                         <li><a href="CompraServlet"><i class="fas fa-eye"></i>Ver Compras</a></li>
-                        <li><a href="organizarPartida.jspq"><i class="fas fa-calendar-plus"></i>Organizar Partida</a></li>                        
+                        <li><a href="organizarPartida.jsp"><i class="fas fa-calendar-plus"></i>Organizar Partida</a></li>                        
                         <li><a href="valorar-experiencia.jsp"><i class="fas fa-star"></i> Valorar Experiencia</a></li>
                     </c:if>
                     <li><a href="private/descargarJuego.jsp"><i class="fas fa-download"></i> Descargar Juego</a></li>
@@ -82,7 +82,7 @@ if (cookies != null) {
                 <div class="breadcrumb">
                     <a href="index.jsp">Inicio</a>
                     <span>/</span>
-                    <span>Dashboard</span>
+                    <span>Perfil</span>
                 </div>
                 
                 <div class="header-actions">

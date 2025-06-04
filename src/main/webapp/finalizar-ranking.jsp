@@ -126,9 +126,9 @@
                 <ul class="footer-links">
 					<li><a href="informacion.jsp"><fmt:message key="footer.informacion" /></a></li>
                     <li><a href="Ranking"><fmt:message key="footer.ranking" /></a></li>
-                    <li><a href="ComprarCupon.jsp"><fmt:message key="footer.comprarCupon" /></a></li>
+                    <li><a href="comprarCupon.jsp"><fmt:message key="footer.comprarCupon" /></a></li>
                     <li><a href="PerfilServlet"><fmt:message key="footer.perfil" /></a></li>
-                    <li><a href="descargarJuego.jsp"><fmt:message key="footer.descargar" /></a></li>
+                    <li><a href="private/descargarJuego.jsp"><fmt:message key="footer.descargar" /></a></li>
                 </ul>
             </div>
 

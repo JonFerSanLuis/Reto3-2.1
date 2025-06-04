@@ -47,8 +47,8 @@ body {
 }
 
 .logo img {
-  height: 55px;
-  transition: transform 0.3s;
+  height: 60px;
+    width: 210px;
 }
 
 .logo img:hover {
