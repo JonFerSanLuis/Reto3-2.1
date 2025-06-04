@@ -63,11 +63,11 @@
             </div>
             <%   if (username != null) { 
 			%>
-			        <a href="../perfil.jsp" class="btn">Perfil</a>
+			        <a href="PerfilServlet" class="btn"><fmt:message key="menu.perfil" /></a>
 			<% 
 			    } else { 
 			%>
-			        <a href="../login.jsp" class="btn">Iniciar sesión</a>
+			        <a href="login.jsp" class="btn"><fmt:message key="menu.iniciarSesion" /></a>
 			<% 
 			    } 
 			%>
