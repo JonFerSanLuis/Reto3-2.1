@@ -42,12 +42,14 @@ CREATE TABLE IF NOT EXISTS `centros` (
   `tipo_suscriptor` enum('centro','ordinario') DEFAULT NULL,
   PRIMARY KEY (`id_suscriptor`),
   CONSTRAINT `FK_centros_suscriptores` FOREIGN KEY (`id_suscriptor`) REFERENCES `suscriptores` (`id_suscriptor`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bilbaoskp.centros: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bilbaoskp.centros: ~4 rows (aproximadamente)
 INSERT INTO `centros` (`id_suscriptor`, `cod_centro`, `nombre`, `responsable`, `num_alumnos`, `email`, `telefono`, `tipo_suscriptor`) VALUES
 	(13, '0', 'San Luis 2', 'Erlantz', 344, 'peperodrigues@gmail.com', '65553215', 'centro'),
-	(42, '1234', 'Dayron', 'Juan Puertas', 200, 'aldo.dayron81@gmail.com', '683270192', 'centro');
+	(42, '1234', 'Dayron', 'Juan Puertas', 200, 'aldo.dayron81@gmail.com', '683270192', 'centro'),
+	(43, '1234', 'San Luis', 'Iban', 15, 'pep@gmail.com', '6854156', 'centro'),
+	(44, '1234', 'UPV', 'joni', 20, 'pep@gmail.com', '6854156', 'centro');
 
 -- Volcando estructura para tabla bilbaoskp.clases
 CREATE TABLE IF NOT EXISTS `clases` (
@@ -572,18 +574,20 @@ CREATE TABLE IF NOT EXISTS `suscriptores` (
   PRIMARY KEY (`id_suscriptor`),
   UNIQUE KEY `usernameUnique` (`username`),
   KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bilbaoskp.suscriptores: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla bilbaoskp.suscriptores: ~10 rows (aproximadamente)
 INSERT INTO `suscriptores` (`id_suscriptor`, `username`, `estado`, `fecha_alta`, `tipo`, `password`, `correo`, `edad`) VALUES
 	(4, 'GamerPro123', 'activo', '2023-01-15', 'ordinario', 'password123', 'gamer123@email.com', 25),
 	(5, 'MasterGamer', 'activo', '2023-02-20', 'ordinario', 'password456', 'master@email.com', 30),
 	(6, 'GameWizard', 'activo', '2023-03-10', 'ordinario', 'password789', 'wizard@email.com', 22),
 	(7, 'PlayerOne', 'activo', '2023-04-05', 'ordinario', 'password101', 'player1@email.com', 28),
 	(8, 'GameChampion', 'activo', '2023-05-12', 'ordinario', 'password202', 'champion@email.com', 19),
-	(13, 'Erlantz', 'activo', '2025-04-27', 'centro', 'temporal', 'aldo.dayron81@gmail.com', 0),
+	(13, 'Erlantz', 'solicitud_baja', '2025-04-27', 'centro', 'temporal', 'aldo.dayron81@gmail.com', 0),
 	(32, 'Jon', 'estado', '2025-05-20', 'admin', '1234', 'jon@gmail.com', 12),
-	(42, 'Juan', 'activo', '2025-05-29', 'centro', '1234', 'aldo.dayron81@gmail.com', 0);
+	(42, 'Juan', 'solicitud_baja', '2025-05-29', 'centro', '1234', 'aldo.dayron81@gmail.com', 0),
+	(43, 'Iban', 'pendiente', '2025-06-05', 'centro', '1234', 'pep@gmail.com', 0),
+	(44, 'joni', 'pendiente', '2025-06-05', 'centro', '1234', 'pep@gmail.com', 0);
 
 -- Volcando estructura para tabla bilbaoskp.valoracion
 CREATE TABLE IF NOT EXISTS `valoracion` (
@@ -596,7 +600,7 @@ CREATE TABLE IF NOT EXISTS `valoracion` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bilbaoskp.valoracion: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bilbaoskp.valoracion: ~1 rows (aproximadamente)
 INSERT INTO `valoracion` (`id`, `partida`, `puntuacion`, `dificultad`, `recomendar`, `comentario`) VALUES
 	(7, 1, 3, 'medio', 'no', 'frfr');
 
